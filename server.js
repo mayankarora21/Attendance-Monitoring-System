@@ -123,9 +123,20 @@ app.post('/addstudent',(req,res)=>{
 })
 
 app.delete('/deletestudent',(req,res)=>{
-    db('student').where({roll:req.body.roll}).del()
-    .then(data=>res.json('student deleted'))
-    .catch(err=>res.status(404).json(err));
+//    on delete cascade
+//    all the referencing tuples will also be deleted
+    db('student').select('*').where({roll:req.body.roll})
+    .then(data=>{
+        if(data.length===0){
+            return res.json('student does not exist');
+        }
+        else{
+            db('student').where({roll:req.body.roll}).del()
+            .then(data=>res.json('student deleted'))
+            .catch(err=>res.status(404).json(err));
+        }
+    }).catch(err=>res.status(404).json(err));
+    
 })
 
 app.post('/assignfaculty',(req,res)=>{
