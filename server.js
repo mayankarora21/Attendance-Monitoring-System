@@ -170,9 +170,17 @@ app.post('/assignfaculty',(req,res)=>{
 })
 app.delete('/deassignfaculty',(req,res)=>{
     const {facultyid,classid,courseid}=req.body;
-    db('faculty_teaches').where({facultyid:facultyid,classid:classid,courseid:courseid}).del()
-    .then(data=>res.json('faculty deassigned'))
-    .catch(err=>res.status(404).json(err));
+    db('faculty_teaches').select('*').where({facultyid:facultyid,classid:classid,courseid:courseid})
+    .then(data=>{
+        if(data.length===0){
+            return res.json('assignment does not exist');
+        }
+        else{
+            db('faculty_teaches').where({facultyid:facultyid,classid:classid,courseid:courseid}).del()
+            .then(data=>res.json('faculty deassigned'))
+            .catch(err=>res.status(404).json(err));
+        }
+    }).catch(err=>res.status(404).json(err));
 })
 
 app.post('/assigncourse',(req,res)=>{
