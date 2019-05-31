@@ -6,7 +6,7 @@ import SubmitButton from '../SubmitButton/SubmitButton';
 
 
 
-class AddStudent extends Component{
+class AddFaculty extends Component{
     handleFormSubmit=(e)=>{
         e.stopPropagation();
         e.preventDefault();
@@ -88,4 +88,4 @@ class AddStudent extends Component{
     }
 }
 
-export default AddStudent;
+export default AddFaculty;

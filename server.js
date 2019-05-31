@@ -25,9 +25,18 @@ app.get('/',(req,res)=>{
 
 app.post('/addclass',(req,res)=>{
     const {classid,branch,semester,section}=req.body;
-    db('class').insert({classid:classid,branch:branch,semester:semester,section:section})
-    .then(data=>res.json('success'))
-    .catch(err=>res.status(404).json(err));
+    db('class').select('classid').where({classid:classid})
+    .then(data=>{
+        if(data.length!==0){
+            return res.json('class already exists');
+        }
+        else{
+            db('class').insert({classid:classid,branch:branch,semester:semester,section:section})
+            .then(data=>res.json('success'))
+            .catch(err=>res.status(404).json(err));
+        }
+    }).catch(err=>res.status(404).json(err));
+    
 })
 
 app.delete('/deleteclass',(req,res)=>{
