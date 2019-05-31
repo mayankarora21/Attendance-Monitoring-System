@@ -9,6 +9,7 @@ import AddClass from '../Admin/AddClass/AddClass';
 import AddCourse from '../Admin/AddCourse/AddCourse';
 import AssignCourse from '../Admin/AssignCourse/AssignCourse';
 import AssignFaculty from '../Admin/AssignFaculty/AssignFaculty';
+import DeassignCourse from '../Admin/DeassignCourse/DeassignCourse';
 
 const Routes=()=>{
     return(
@@ -19,6 +20,7 @@ const Routes=()=>{
             <Route path="/addcourse" component={AddCourse}></Route>
             <Route path="/assigncourse" component={AssignCourse}></Route>
             <Route path="/assignfaculty" component={AssignFaculty}></Route>
+            <Route path="/deassigncourse" component={DeassignCourse}></Route>
             <Route path="/admin" exact component={AdminHome}></Route>
             <Route path="/" exact component={Home}></Route>
         </Switch>

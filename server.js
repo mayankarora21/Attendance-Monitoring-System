@@ -210,9 +210,17 @@ app.post('/assigncourse',(req,res)=>{
 
 app.delete('/deassigncourse',(req,res)=>{
     const {roll,courseid}=req.body;
-    db('student_studies').where({roll:roll,courseid:courseid}).del()
-    .then(data=>res.json('course deassigned'))
-    .catch(err=>res.status(404).json(err));
+    db('student_studies').select('*').where({roll:roll,courseid:courseid})
+    .then(data=>{
+        if(data.length===0){
+            return res.json('assignment does not exist');
+        }
+        else{
+            db('student_studies').where({roll:roll,courseid:courseid}).del()
+            .then(data=>res.json('course deassigned'))
+            .catch(err=>res.status(404).json(err));
+        }
+    }).catch(err=>res.status(404).json(err));
 })
 
 app.get('/getattendance',(req,res)=>{
