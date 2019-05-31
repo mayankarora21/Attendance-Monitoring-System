@@ -8,6 +8,7 @@ import AddFaculty from '../Admin/AddFaculty/AddFaculty';
 import AddClass from '../Admin/AddClass/AddClass';
 import AddCourse from '../Admin/AddCourse/AddCourse';
 import AssignCourse from '../Admin/AssignCourse/AssignCourse';
+import AssignFaculty from '../Admin/AssignFaculty/AssignFaculty';
 
 const Routes=()=>{
     return(
@@ -17,6 +18,7 @@ const Routes=()=>{
             <Route path="/addclass" component={AddClass}></Route>
             <Route path="/addcourse" component={AddCourse}></Route>
             <Route path="/assigncourse" component={AssignCourse}></Route>
+            <Route path="/assignfaculty" component={AssignFaculty}></Route>
             <Route path="/admin" exact component={AdminHome}></Route>
             <Route path="/" exact component={Home}></Route>
         </Switch>

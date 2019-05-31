@@ -130,9 +130,43 @@ app.delete('/deletestudent',(req,res)=>{
 
 app.post('/assignfaculty',(req,res)=>{
     const {facultyid,classid,courseid}=req.body;
-    db('faculty_teaches').insert({facultyid:facultyid,classid:classid,courseid:courseid})
-    .then(data=>res.json('faculty assigned'))
-    .catch(err=>res.status(404).json(err))
+    db('faculty_teaches').select('*').where({facultyid:facultyid,classid:classid,courseid:courseid})
+    .then(data=>{
+        if(data.length!==0){
+            return res.json('assignment already exist');
+        }
+        else{
+            db('faculty').select('*').where({id:facultyid})
+            .then(data=>{
+                if(data.length===0){
+                    return res.json('faculty does not exist');
+                }
+                else{
+                    db('course').select('*').where({courseid:courseid})
+                    .then(data=>{
+                        if(data.length===0){
+                            return res.json('course does not exist');
+                        }
+                        else{
+                            db('class').select('*').where({classid:classid})
+                            .then(data=>{
+                                if(data.length===0){
+                                    return res.json('course does not exist');
+                                }
+                                else{
+                                    db('faculty_teaches').insert({facultyid:facultyid,classid:classid,courseid:courseid})
+                                    .then(data=>res.json('faculty assigned'))
+                                    .catch(err=>res.status(404).json(err))
+                                }
+                            }).catch(err=>res.status(404).json(err))
+                        }
+                    }).catch(err=>res.status(404).json(err));
+                }
+            }).catch(err=>res.status(404).json(err))
+        }
+    }).catch(err=>res.status(404).json(err));
+    
+    
 })
 app.delete('/deassignfaculty',(req,res)=>{
     const {facultyid,classid,courseid}=req.body;

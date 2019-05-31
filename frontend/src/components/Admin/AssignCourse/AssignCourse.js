@@ -14,8 +14,8 @@ class AssignCourse extends Component{
         const courseidBox=document.getElementById('courseidAssign');
         
         const assignment={
-            roll:rollBox.value,
-            courseid:courseidBox.value
+            roll:rollBox.value.toLowerCase(),
+            courseid:courseidBox.value.toLowerCase()
         };
         fetch('http://localhost:3000/assigncourse',{
             method:'post',
