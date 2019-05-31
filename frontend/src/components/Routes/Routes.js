@@ -14,6 +14,7 @@ import DeassignFaculty from '../Admin/DeassignFaculty/DeassignFaculty';
 import RemoveStudent from '../Admin/RemoveStudent/RemoveStudent';
 import RemoveFaculty from '../Admin/RemoveFaculty/RemoveFaculty';
 import RemoveClass from '../Admin/RemoveClass/RemoveClass';
+import RemoveCourse from '../Admin/RemoveCourse/RemoveCourse';
 
 const Routes=()=>{
     return(
@@ -29,6 +30,7 @@ const Routes=()=>{
             <Route path="/removestudent" component={RemoveStudent}></Route>
             <Route path="/removefaculty" component={RemoveFaculty}></Route>
             <Route path="/removeclass" component={RemoveClass}></Route>
+            <Route path="/removecourse" component={RemoveCourse}></Route>
             <Route path="/admin" exact component={AdminHome}></Route>
             <Route path="/" exact component={Home}></Route>
         </Switch>

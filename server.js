@@ -70,9 +70,17 @@ app.post('/addcourse',(req,res)=>{
 })
 
 app.delete('/deletecourse',(req,res)=>{
-    db('course').where({courseid:req.body.courseid}).del()
-        .then(data=>res.json('course deleted'))
-        .catch(err=>res.status(404).json(err));
+    db('course').select('*').where({courseid:req.body.courseid})
+    .then(data=>{
+        if(data.length===0){
+            return res.json('course does not exist');
+        }
+        else{
+            db('course').where({courseid:req.body.courseid}).del()
+            .then(data=>res.json('course deleted'))
+            .catch(err=>res.status(404).json(err));
+        }
+    }).catch(err=>res.status(404).json(err));
 })
 
 app.post('/addfaculty',(req,res)=>{
