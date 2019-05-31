@@ -13,5 +13,16 @@
     text-decoration: none;
 }
 
+.blackBackground{
+    background: black;
+    min-height: 100vh;
+}
 
+.transparentBackground{
+    background: transparent;
+}
+.centrallyAligned{
+    margin-left: auto;
+    margin-right: auto;
+}
 

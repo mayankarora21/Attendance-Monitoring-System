@@ -69,9 +69,31 @@ app.delete('/deletefaculty',(req,res)=>{
 
 app.post('/addstudent',(req,res)=>{
     const {roll,name,email,contact,classid}=req.body;
-    db('student').insert({roll:roll,name:name,email:email,contact:contact,classid:classid})
-    .then(data=>res.json('student added'))
-    .catch(err=>res.status(404).json(err));
+    
+    db('student').select('roll','email').where({roll:roll}).orWhere({email:email})
+        .then(data=>{
+        let studentFound=false;
+        if(data.length!==0){
+            studentFound=true;
+//            console.log("exists")
+            return res.json("student already exists");
+        }
+        if(studentFound===false){
+//            console.log("not exists")
+            db('class').select('classid').where({classid:classid})
+            .then(data=>{
+                if(data.length!==0){
+                    db('student').insert({roll:roll,name:name,email:email,contact:contact,classid:classid})
+                    .then(data=>res.json('student added'))
+                    .catch(err=>res.status(404).json(err));
+                }
+                else{
+                    return res.json("class does not exists");
+                }
+            }).catch(err=>res.status(404).json(err));
+            
+        }
+    }).catch(err=>res.status(404).json(err));
 })
 
 app.delete('/deletestudent',(req,res)=>{
