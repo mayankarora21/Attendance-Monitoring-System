@@ -41,8 +41,16 @@ app.post('/addclass',(req,res)=>{
 
 app.delete('/deleteclass',(req,res)=>{
     const {classid}=req.body;
-    db('class').where({classid:classid}).del().then(data=>res.json(data))
-    .catch(err=>res.status(404).json(err));
+    db('class').select('*').where({classid:classid})
+    .then(data=>{
+        if(data.length===0){
+            return res.json('class does not exist');
+        }
+        else{
+            db('class').where({classid:classid}).del().then(data=>res.json("class deleted"))
+            .catch(err=>res.status(404).json(err));
+        }
+    }).catch(err=>res.status(404).json(err));
 })
 
 app.post('/addcourse',(req,res)=>{
