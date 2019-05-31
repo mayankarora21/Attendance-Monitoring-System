@@ -87,9 +87,20 @@ app.post('/addfaculty',(req,res)=>{
 })
 
 app.delete('/deletefaculty',(req,res)=>{
-    db('faculty').where({id:req.body.facultyID}).del()
-    .then(data=>res.json('faculty deleted'))
-    .catch(err=>res.status(404).json(err));
+//    on delete cascade
+//    all the referencing tuples will also be deleted
+    db('faculty').select('*').where({id:req.body.facultyid})
+    .then(data=>{
+        if(data.length===0){
+            return res.json('faculty does not exist');
+        }
+        else{
+            db('faculty').where({id:req.body.facultyid}).del()
+            .then(data=>res.json('faculty deleted'))
+            .catch(err=>res.status(404).json(err));
+        }
+    })
+    
 })
 
 
