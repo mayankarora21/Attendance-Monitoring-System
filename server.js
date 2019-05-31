@@ -51,13 +51,21 @@ app.delete('/deletecourse',(req,res)=>{
 
 app.post('/addfaculty',(req,res)=>{
     const {name,email,contact}=req.body;
-    db('faculty').insert({name:name,email:email,contact:contact})
-    .returning('id')
-    .then(data=>res.json(data))
-    .catch(err=>{
-        console.log(err)
-        res.status(404).json(err)
-    })
+    db('faculty').select('email').where({email:email})
+    .then(data=>{
+        if(data.length!==0){
+            return res.json('faculty already exists');
+        }
+        else{
+            db('faculty').insert({name:name,email:email,contact:contact})
+            .returning('id')
+            .then(data=>res.json(data))
+            .catch(err=>{
+                console.log(err)
+                res.status(404).json(err)
+            })
+        }
+    }).catch(err=>res.status(404).json(err));
 })
 
 app.delete('/deletefaculty',(req,res)=>{
