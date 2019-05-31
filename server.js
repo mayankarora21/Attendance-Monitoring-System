@@ -47,9 +47,18 @@ app.delete('/deleteclass',(req,res)=>{
 
 app.post('/addcourse',(req,res)=>{
     const {courseid,name,branch,semester} = req.body;
-    db('course').insert({courseid:courseid,name:name,branch:branch,semester:semester})
-    .then(data=>res.json('course added'))
-    .catch(err=>res.status(404).json(err));
+    
+    db('course').select('courseid').where({courseid:courseid})
+    .then(data=>{
+        if(data.length!==0){
+            return res.json('course already exists');
+        }
+        else{
+            db('course').insert({courseid:courseid,name:name,branch:branch,semester:semester})
+            .then(data=>res.json('course added'))
+            .catch(err=>res.status(404).json(err));
+        }
+    }).catch(err=>res.status(404).json(err));
 })
 
 app.delete('/deletecourse',(req,res)=>{
