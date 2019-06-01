@@ -16,6 +16,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import HomeIcon from '@material-ui/icons/Home';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import LockIcon from '@material-ui/icons/Lock';
 
 import {MuiThemeProvider,createMuiTheme} from '@material-ui/core/styles';
 
@@ -80,9 +81,13 @@ class ButtonAppBar extends React.Component{
     adminSignOut=()=>{
         this.props.signOutAdmin();
     }
+    studentSignOut=()=>{
+        this.props.signOutStudent();
+    }
     render(){
         const { classes } = this.props;
         const isAdminLoggedIn=this.props.isAdminLoggedIn;
+        const isStudentLoggedIn=this.props.isStudentLoggedIn;
 //        console.log(isAdminLoggedIn);
         const sideList = (
           <div className={classes.list}>
@@ -141,6 +146,32 @@ class ButtonAppBar extends React.Component{
           </div>
         );
         
+        const sideListStudent = (
+          <div className={classes.list}>
+                <List>
+                    <Link to ="/student">
+                        <ListItem button>
+                            <ListItemIcon  classes={{root:classes.whiteColor}}><HomeIcon /></ListItemIcon>
+                            <ListItemText primary="Student Home" classes={{primary:classes.whiteColor}}></ListItemText> 
+                        </ListItem>
+                    </Link>
+                    <Link to ="/studentupdatepassword">
+                        <ListItem button>
+                            <ListItemIcon  classes={{root:classes.whiteColor}}><LockIcon /></ListItemIcon>
+                            <ListItemText primary="Update Password" classes={{primary:classes.whiteColor}}></ListItemText> 
+                        </ListItem>
+                    </Link>
+                    <Link to="/studentlogin">
+                        <ListItem button onClick={this.studentSignOut}>
+                            <ListItemIcon classes={{root:classes.whiteColor}}><AccountCircleIcon /></ListItemIcon>
+                            <ListItemText primary="Sign Out" classes={{primary:classes.whiteColor}}></ListItemText>
+                        </ListItem>
+                    </Link>
+                </List>
+                <Divider variant ="middle" classes={{middle:classes.backgroundWhite}}/>
+          </div>
+        );
+        
         
         return (
             <div className={`${classes.root} tl`}>
@@ -164,7 +195,7 @@ class ButtonAppBar extends React.Component{
                     onKeyDown={this.toggleDrawer('left', false)}
                   >
                     {
-                        (isAdminLoggedIn===true)?sideListAdmin:sideList
+                        (isAdminLoggedIn===true)?sideListAdmin:(isStudentLoggedIn===true)?sideListStudent:sideList
                     }
                   </div>
                 </Drawer>
@@ -180,14 +211,19 @@ ButtonAppBar.propTypes = {
 };
 const mapStateToProps=(state)=>{
     return{
-        isAdminLoggedIn:state.loadAdminReducer.isAdminLoggedIn
+        isAdminLoggedIn:state.loadAdminReducer.isAdminLoggedIn,
+        isStudentLoggedIn:state.loginStudentReducer.isStudentLoggedIn
     }
 }
 const mapDispatchToProps=(dispatch)=>{
     return{
         signOutAdmin:()=>{
             dispatch(actions.loadAdmin(false));
+        },
+        signOutStudent:()=>{
+            dispatch(actions.loginStudent(false));
         }
+        
     }
 }
 

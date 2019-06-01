@@ -30,3 +30,17 @@ export function loadAttendance(roll){
         payload:attendance
     }
 }
+export function loginStudent(isStudentLoggedIn){
+//    console.log(isStudentLoggedIn)
+    return{
+        type:actionTypes.LOGIN_STUDENT,
+        payload:{isStudentLoggedIn:isStudentLoggedIn}
+    } 
+}
+export function loadStudent(currStudent){
+//    console.log('load student',currStudent);
+    return{
+        type:actionTypes.LOAD_STUDENT,
+        payload:currStudent
+    }
+}

@@ -1,2 +1,4 @@
 export const LOAD_ADMIN="LOAD_ADMIN";
 export const LOAD_ATTENDANCE="LOAD_ATTENDANCE";
+export const LOAD_STUDENT="LOAD_STUDENT";
+export const LOGIN_STUDENT="LOGIN_STUDENT";
