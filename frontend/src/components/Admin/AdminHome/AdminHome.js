@@ -4,9 +4,17 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 
-const AdminHome=()=>{
-    return(
+import LoginFirst from '../../LoginFirst/LoginFirst';
+
+const AdminHome=(props)=>{
+//    console.log(props)
+    if(props.isAdminLoggedIn===false){
+        return <LoginFirst></LoginFirst>
+    }
+    else{
+        return(
         <div className="adminHomeBackground white">
             <h2 className="ma0">Welcome Admin</h2><br></br><br/>
             <Grid container spacing={2}>
@@ -103,6 +111,12 @@ const AdminHome=()=>{
             </Grid>
         </div>
     )
+    }
+    
 };
-
-export default AdminHome;
+const mapStateToProps=(state)=>{
+    return {
+        isAdminLoggedIn:state.loadAdminReducer.isAdminLoggedIn
+    }
+}
+export default connect(mapStateToProps,null)(AdminHome);

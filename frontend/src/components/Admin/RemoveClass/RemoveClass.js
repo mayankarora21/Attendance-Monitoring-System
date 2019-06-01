@@ -11,9 +11,6 @@ class RemoveClass extends Component{
         e.stopPropagation();
         e.preventDefault();
         const classidBox=document.getElementById('classid');
-        const branchBox=document.getElementById('classBranch');
-        const semesterBox=document.getElementById('classSemester');
-        const sectionBox=document.getElementById('classSection');
         const currClass={
             classid:classidBox.value.toLowerCase(),
         };

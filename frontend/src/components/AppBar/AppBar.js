@@ -20,6 +20,8 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import {MuiThemeProvider,createMuiTheme} from '@material-ui/core/styles';
 
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import * as actions from '../../actions/actions';
 
 const styles = {
   root: {
@@ -75,8 +77,13 @@ class ButtonAppBar extends React.Component{
           [side]: open,
         });
       };
+    adminSignOut=()=>{
+        this.props.signOutAdmin();
+    }
     render(){
         const { classes } = this.props;
+        const isAdminLoggedIn=this.props.isAdminLoggedIn;
+//        console.log(isAdminLoggedIn);
         const sideList = (
           <div className={classes.list}>
                 <List>
@@ -114,6 +121,25 @@ class ButtonAppBar extends React.Component{
                 <Divider variant ="middle" classes={{middle:classes.backgroundWhite}}/>
           </div>
         );
+        const sideListAdmin = (
+          <div className={classes.list}>
+                <List>
+                    <Link to ="/admin">
+                        <ListItem button>
+                            <ListItemIcon  classes={{root:classes.whiteColor}}><HomeIcon /></ListItemIcon>
+                            <ListItemText primary="Admin Home" classes={{primary:classes.whiteColor}}></ListItemText> 
+                        </ListItem>
+                    </Link>
+                    <Link to="/adminlogin">
+                        <ListItem button onClick={this.adminSignOut}>
+                            <ListItemIcon classes={{root:classes.whiteColor}}><AccountCircleIcon /></ListItemIcon>
+                            <ListItemText primary="Sign Out" classes={{primary:classes.whiteColor}}></ListItemText>
+                        </ListItem>
+                    </Link>
+                </List>
+                <Divider variant ="middle" classes={{middle:classes.backgroundWhite}}/>
+          </div>
+        );
         
         
         return (
@@ -137,7 +163,9 @@ class ButtonAppBar extends React.Component{
                     onClick={this.toggleDrawer('left', false)}
                     onKeyDown={this.toggleDrawer('left', false)}
                   >
-                    {sideList}
+                    {
+                        (isAdminLoggedIn===true)?sideListAdmin:sideList
+                    }
                   </div>
                 </Drawer>
             </div>
@@ -150,5 +178,17 @@ class ButtonAppBar extends React.Component{
 ButtonAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+const mapStateToProps=(state)=>{
+    return{
+        isAdminLoggedIn:state.loadAdminReducer.isAdminLoggedIn
+    }
+}
+const mapDispatchToProps=(dispatch)=>{
+    return{
+        signOutAdmin:()=>{
+            dispatch(actions.loadAdmin(false));
+        }
+    }
+}
 
-export default withStyles(styles)(ButtonAppBar);
+export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(ButtonAppBar));

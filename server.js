@@ -403,6 +403,15 @@ app.put('/updateattendance',(req,res)=>{
     res.json('attendance updated');
 })
 
+app.post('/adminlogin',(req,res)=>{
+    const {username,password}=req.body;
+    if(username==='admin' && password==='admin'){
+        return res.json('right credentials');
+    }
+    else{
+        return res.json('wrong credentials');
+    }
+})
 
 app.listen(3000,()=>{
     console.log('app is running on port 3000');
@@ -434,7 +443,7 @@ app.listen(3000,()=>{
 /facultysignup-->post-->'success/failure'                          //done
 /getcourseandclass-->get-->list of courses and classes that the faculty is assigned     //done
 /updateattendance-->put-->'success/failure'                 //done
-
+/adminlogin-->post-->'success/failure'                      //done
 
 /login-->get-->'success/failure'                            //done
 /updatepassword-->get-->'success/failure'                   //done

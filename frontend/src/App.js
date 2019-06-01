@@ -3,11 +3,18 @@ import './App.css';
 
 import Routes from './components/Routes/Routes';
 import {BrowserRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import 'tachyons';
 import AppBar from './components/AppBar/AppBar';
 
+import * as actions from './actions/actions';
+
 class App extends Component {
+    componentWillMount(){
+//        console.log('app initializing');
+        this.props.initializeApp();
+    }
   render() {
     return (
         <BrowserRouter>
@@ -20,4 +27,12 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps=(dispatch)=>{
+    return {
+        initializeApp:()=>{
+            dispatch(actions.loadAdmin(false));
+        }
+    }
+}
+
+export default connect(null,mapDispatchToProps)(App);

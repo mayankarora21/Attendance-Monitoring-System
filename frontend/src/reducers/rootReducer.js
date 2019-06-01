@@ -1,10 +1,8 @@
-//import {combineReducers} from 'redux';
-//
-//const rootReducer=combineReducers({
-//    
-//});
-const rootReducer=(state={},action)=>{
-    
-}
+import {combineReducers} from 'redux';
+import loadAdminReducer from './loadAdminReducer';
+
+const rootReducer=combineReducers({
+    loadAdminReducer
+});
 
 export default rootReducer;
