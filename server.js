@@ -334,9 +334,18 @@ app.get('/facultylogin',(req,res)=>{
 //})
 app.post('/studentsignup',(req,res)=>{
     const {email,password} = req.body;
-    db('student_login').insert({email:email,password:password})
-    .then(data=>res.json('signed up'))
-    .catch(err=>res.status(404).json(err));
+    db('student_login').select('*').where({email:email})
+    .then(data=>{
+        if(data.length!==0){
+            res.json('email already exist');
+        }
+        else{
+            db('student_login').insert({email:email,password:password})
+            .then(data=>res.json('signed up'))
+            .catch(err=>res.status(404).json(err));
+        }
+    }).catch(err=>res.status(404).json(err));
+    
 })
 
 app.post('/facultysignup',(req,res)=>{
