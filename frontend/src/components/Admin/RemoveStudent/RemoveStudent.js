@@ -3,7 +3,8 @@ import React,{Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 
 import SubmitButton from '../SubmitButton/SubmitButton';
-
+import {connect} from 'react-redux';
+import LoginFirst from '../../LoginFirst/LoginFirst';
 
 
 class RemoveStudent extends Component{
@@ -39,25 +40,35 @@ class RemoveStudent extends Component{
         rollBox.value='';
     }
     render(){
-        return(
-            <div className="pa4 blackBackground">
-            <form className="bg-white w-50 centrallyAligned pv3 ph1" onSubmit={this.handleFormSubmit}>
-                <h3>Remove Student</h3>
-            Enter roll number of student
-            <br></br>
+        if(this.props.isAdminLoggedIn===false){
+            return <LoginFirst></LoginFirst>
+        }
+        else{
+            return(
+                <div className="pa4 blackBackground">
+                <form className="bg-white w-50 centrallyAligned pv3 ph1" onSubmit={this.handleFormSubmit}>
+                    <h3>Remove Student</h3>
+                Enter roll number of student
+                <br></br>
 
-            <TextField
-                id="studentRollDelete"
-                placeholder="ex: 2k17/se/001"
-                type="text"
-                margin="normal"
-                required
-              /><br></br><br/>
-                <SubmitButton text="Remove Student"></SubmitButton>
-               </form>
-            </div>
-        );
+                <TextField
+                    id="studentRollDelete"
+                    placeholder="ex: 2k17/se/001"
+                    type="text"
+                    margin="normal"
+                    required
+                  /><br></br><br/>
+                    <SubmitButton text="Remove Student"></SubmitButton>
+                   </form>
+                </div>
+            );
+        }
+        
     }
 }
-
-export default RemoveStudent;
+const mapStateToProps=(state)=>{
+    return {
+        isAdminLoggedIn:state.loadAdminReducer.isAdminLoggedIn
+    }
+}
+export default connect(mapStateToProps,null)(RemoveStudent);

@@ -3,7 +3,8 @@ import React,{Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 
 import SubmitButton from '../SubmitButton/SubmitButton';
-
+import {connect} from 'react-redux';
+import LoginFirst from '../../LoginFirst/LoginFirst';
 
 
 class AddStudent extends Component{
@@ -55,67 +56,77 @@ class AddStudent extends Component{
         classidBox.value='';
     }
     render(){
-        return(
-            <div className="pa4 blackBackground">
-            <form className="bg-white w-50 centrallyAligned pv3 ph1" onSubmit={this.handleFormSubmit}>
-                <h3>Add Student</h3>
-            Enter roll number of student
-            <br></br>
+        if(this.props.isAdminLoggedIn===false){
+            return <LoginFirst></LoginFirst>
+        }
+        else{
+            return(
+                <div className="pa4 blackBackground">
+                <form className="bg-white w-50 centrallyAligned pv3 ph1" onSubmit={this.handleFormSubmit}>
+                    <h3>Add Student</h3>
+                Enter roll number of student
+                <br></br>
 
-            <TextField
-                id="studentRoll"
-                placeholder="ex: 2k17/se/001"
-                type="text"
-                margin="normal"
-                required
-              /><br></br><br/>
-            Enter name of student
-            <br></br>
-            <TextField
-                id="studentName"
-                placeholder="Student Name"
-                margin="normal"
-                type="text"
-                required
-              /><br></br><br/>
-            Enter email id of student
-            <br></br>
+                <TextField
+                    id="studentRoll"
+                    placeholder="ex: 2k17/se/001"
+                    type="text"
+                    margin="normal"
+                    required
+                  /><br></br><br/>
+                Enter name of student
+                <br></br>
+                <TextField
+                    id="studentName"
+                    placeholder="Student Name"
+                    margin="normal"
+                    type="text"
+                    required
+                  /><br></br><br/>
+                Enter email id of student
+                <br></br>
 
-            <TextField
-                id="studentEmail"
-                placeholder="Student Email ID"
-                margin="normal"
-                type="email"
-                required
-              />
-            <br></br><br/>
-            Enter contact of student
-            <br></br>
+                <TextField
+                    id="studentEmail"
+                    placeholder="Student Email ID"
+                    margin="normal"
+                    type="email"
+                    required
+                  />
+                <br></br><br/>
+                Enter contact of student
+                <br></br>
 
-            <TextField
-                id="studentContact"
-                placeholder="Student Contact"
-                margin="normal"
-                type="number"
-                required
-              />
-            <br></br><br/>
-            Enter class id of student
-            <br></br>
+                <TextField
+                    id="studentContact"
+                    placeholder="Student Contact"
+                    margin="normal"
+                    type="number"
+                    required
+                  />
+                <br></br><br/>
+                Enter class id of student
+                <br></br>
 
-            <TextField
-                id="studentClass"
-                placeholder="ex: se4a1"
-                margin="normal"
-                type="text"
-                required
-              />
-                <br/><br/>
-                <SubmitButton text="Add Student"></SubmitButton>
-               </form>
-            </div>
-        );
+                <TextField
+                    id="studentClass"
+                    placeholder="ex: se4a1"
+                    margin="normal"
+                    type="text"
+                    required
+                  />
+                    <br/><br/>
+                    <SubmitButton text="Add Student"></SubmitButton>
+                   </form>
+                </div>
+            );
+        }
+        
     }
 }
-
-export default AddStudent;
+const mapStateToProps=(state)=>{
+    return {
+        isAdminLoggedIn:state.loadAdminReducer.isAdminLoggedIn
+    }
+}
+export default connect(mapStateToProps,null)(AddStudent);

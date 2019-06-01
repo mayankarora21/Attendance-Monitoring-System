@@ -3,7 +3,8 @@ import React,{Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 
 import SubmitButton from '../SubmitButton/SubmitButton';
-
+import {connect} from 'react-redux';
+import LoginFirst from '../../LoginFirst/LoginFirst';
 
 
 class AssignFaculty extends Component{
@@ -57,45 +58,55 @@ class AssignFaculty extends Component{
         facultyidBox.value='';
     }
     render(){
-        return(
-            <div className="pa4 blackBackground">
-            <form className="bg-white w-50 centrallyAligned pv3 ph1" onSubmit={this.handleFormSubmit}>
-                <h3>Assign Faculty</h3>
-            
-            Enter faculty id of faculty
-            <br></br>
-            <TextField
-                id="facultyid"
-                placeholder="Faculty ID"
-                margin="normal"
-                type="number"
-                required
-              /><br></br><br/>
-            Enter class id of class
-            <br></br>
-            <TextField
-                id="classidAssignFaculty"
-                placeholder="ex: se4a1"
-                margin="normal"
-                type="text"
-                required
-              />
-            <br></br><br/>
-            Enter course id of course
-            <br></br>
-            <TextField
-                id="courseidAssignFaculty"
-                placeholder="ex: se 202"
-                margin="normal"
-                type="text"
-                required
-              />
-            <br></br><br/>
-            <SubmitButton text="Assign Faculty"></SubmitButton>
-               </form>
-            </div>
-        );
+        if(this.props.isAdminLoggedIn===false){
+            return <LoginFirst></LoginFirst>
+        }
+        else{
+            return(
+                <div className="pa4 blackBackground">
+                <form className="bg-white w-50 centrallyAligned pv3 ph1" onSubmit={this.handleFormSubmit}>
+                    <h3>Assign Faculty</h3>
+
+                Enter faculty id of faculty
+                <br></br>
+                <TextField
+                    id="facultyid"
+                    placeholder="Faculty ID"
+                    margin="normal"
+                    type="number"
+                    required
+                  /><br></br><br/>
+                Enter class id of class
+                <br></br>
+                <TextField
+                    id="classidAssignFaculty"
+                    placeholder="ex: se4a1"
+                    margin="normal"
+                    type="text"
+                    required
+                  />
+                <br></br><br/>
+                Enter course id of course
+                <br></br>
+                <TextField
+                    id="courseidAssignFaculty"
+                    placeholder="ex: se 202"
+                    margin="normal"
+                    type="text"
+                    required
+                  />
+                <br></br><br/>
+                <SubmitButton text="Assign Faculty"></SubmitButton>
+                   </form>
+                </div>
+            );
+        }
+        
     }
 }
-
-export default AssignFaculty;
+const mapStateToProps=(state)=>{
+    return {
+        isAdminLoggedIn:state.loadAdminReducer.isAdminLoggedIn
+    }
+}
+export default connect(mapStateToProps,null)(AssignFaculty);

@@ -3,7 +3,8 @@ import React,{Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 
 import SubmitButton from '../SubmitButton/SubmitButton';
-
+import {connect} from 'react-redux';
+import LoginFirst from '../../LoginFirst/LoginFirst';
 
 
 class RemoveFaculty extends Component{
@@ -39,26 +40,36 @@ class RemoveFaculty extends Component{
         facultyidBox.value='';
     }
     render(){
-        return(
-            <div className="pa4 blackBackground">
-            <form className="bg-white w-50 centrallyAligned pv3 ph1" onSubmit={this.handleFormSubmit}>
-                <h3>Remove Faculty</h3>
-            
-            Enter id of faculty
-            <br></br>
-            <TextField
-                id="facultyidDelete"
-                placeholder="Faculty ID"
-                margin="normal"
-                type="number"
-                required
-              /><br></br><br/>
-            
-            <SubmitButton text="Remove Faculty"></SubmitButton>
-               </form>
-            </div>
-        );
+        if(this.props.isAdminLoggedIn===false){
+            return <LoginFirst></LoginFirst>
+        }
+        else{
+            return(
+                <div className="pa4 blackBackground">
+                <form className="bg-white w-50 centrallyAligned pv3 ph1" onSubmit={this.handleFormSubmit}>
+                    <h3>Remove Faculty</h3>
+
+                Enter id of faculty
+                <br></br>
+                <TextField
+                    id="facultyidDelete"
+                    placeholder="Faculty ID"
+                    margin="normal"
+                    type="number"
+                    required
+                  /><br></br><br/>
+
+                <SubmitButton text="Remove Faculty"></SubmitButton>
+                   </form>
+                </div>
+            );
+        }
+        
     }
 }
-
-export default RemoveFaculty;
+const mapStateToProps=(state)=>{
+    return {
+        isAdminLoggedIn:state.loadAdminReducer.isAdminLoggedIn
+    }
+}
+export default connect(mapStateToProps,null)(RemoveFaculty);

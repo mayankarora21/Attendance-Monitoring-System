@@ -3,7 +3,8 @@ import React,{Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 
 import SubmitButton from '../SubmitButton/SubmitButton';
-
+import {connect} from 'react-redux';
+import LoginFirst from '../../LoginFirst/LoginFirst';
 
 
 class AddCourse extends Component{
@@ -50,58 +51,68 @@ class AddCourse extends Component{
         branchBox.value='';
     }
     render(){
-        return(
-            <div className="pa4 blackBackground">
-            <form className="bg-white w-50 centrallyAligned pv3 ph1" onSubmit={this.handleFormSubmit}>
-                <h3>Add Course</h3>
-            Enter course id of course
-            <br></br>
+        if(this.props.isAdminLoggedIn===false){
+            return <LoginFirst></LoginFirst>
+        }
+        else{
+            return(
+                <div className="pa4 blackBackground">
+                <form className="bg-white w-50 centrallyAligned pv3 ph1" onSubmit={this.handleFormSubmit}>
+                    <h3>Add Course</h3>
+                Enter course id of course
+                <br></br>
 
-            <TextField
-                id="courseid"
-                placeholder="ex: se202"
-                margin="normal"
-                type="text"
-                required
-              />
-                <br/><br/>
-            Enter name of course
-            <br></br>
+                <TextField
+                    id="courseid"
+                    placeholder="ex: se202"
+                    margin="normal"
+                    type="text"
+                    required
+                  />
+                    <br/><br/>
+                Enter name of course
+                <br></br>
 
-            <TextField
-                id="courseName"
-                placeholder="Course Name"
-                margin="normal"
-                type="text"
-                required
-              />
-                <br/><br/>
-            Enter branch of course
-            <br></br>
-            <TextField
-                id="courseBranch"
-                placeholder="Course Branch"
-                margin="normal"
-                type="text"
-                required
-              /><br></br><br/>
-            Enter semeter of course
-            <br></br>
+                <TextField
+                    id="courseName"
+                    placeholder="Course Name"
+                    margin="normal"
+                    type="text"
+                    required
+                  />
+                    <br/><br/>
+                Enter branch of course
+                <br></br>
+                <TextField
+                    id="courseBranch"
+                    placeholder="Course Branch"
+                    margin="normal"
+                    type="text"
+                    required
+                  /><br></br><br/>
+                Enter semeter of course
+                <br></br>
 
-            <TextField
-                id="courseSemester"
-                placeholder="Course semester"
-                margin="normal"
-                type="number"
-                required
-              />
-            <br></br><br/>
-            
-                <SubmitButton text="Add Course"></SubmitButton>
-               </form>
-            </div>
-        );
+                <TextField
+                    id="courseSemester"
+                    placeholder="Course semester"
+                    margin="normal"
+                    type="number"
+                    required
+                  />
+                <br></br><br/>
+
+                    <SubmitButton text="Add Course"></SubmitButton>
+                   </form>
+                </div>
+            );
+        }
+        
     }
 }
-
-export default AddCourse;
+const mapStateToProps=(state)=>{
+    return {
+        isAdminLoggedIn:state.loadAdminReducer.isAdminLoggedIn
+    }
+}
+export default connect(mapStateToProps,null)(AddCourse);

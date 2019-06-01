@@ -3,7 +3,8 @@ import React,{Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 
 import SubmitButton from '../SubmitButton/SubmitButton';
-
+import {connect} from 'react-redux';
+import LoginFirst from '../../LoginFirst/LoginFirst';
 
 
 class RemoveClass extends Component{
@@ -38,27 +39,37 @@ class RemoveClass extends Component{
         classidBox.value='';
     }
     render(){
-        return(
-            <div className="pa4 blackBackground">
-            <form className="bg-white w-50 centrallyAligned pv3 ph1" onSubmit={this.handleFormSubmit}>
-                <h3>Remove Class</h3>
-            Enter class id of class
-            <br></br>
+        if(this.props.isAdminLoggedIn===false){
+            return <LoginFirst></LoginFirst>
+        }
+        else{
+            return(
+                <div className="pa4 blackBackground">
+                <form className="bg-white w-50 centrallyAligned pv3 ph1" onSubmit={this.handleFormSubmit}>
+                    <h3>Remove Class</h3>
+                Enter class id of class
+                <br></br>
 
-            <TextField
-                id="classid"
-                placeholder="ex: se4a1"
-                margin="normal"
-                type="text"
-                required
-              />
-                <br/><br/>
-            
-                <SubmitButton text="Remove Class"></SubmitButton>
-               </form>
-            </div>
-        );
+                <TextField
+                    id="classid"
+                    placeholder="ex: se4a1"
+                    margin="normal"
+                    type="text"
+                    required
+                  />
+                    <br/><br/>
+
+                    <SubmitButton text="Remove Class"></SubmitButton>
+                   </form>
+                </div>
+            );
+        }
+        
     }
 }
-
-export default RemoveClass;
+const mapStateToProps=(state)=>{
+    return {
+        isAdminLoggedIn:state.loadAdminReducer.isAdminLoggedIn
+    }
+}
+export default connect(mapStateToProps,null)((RemoveClass));

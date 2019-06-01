@@ -3,7 +3,8 @@ import React,{Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 
 import SubmitButton from '../SubmitButton/SubmitButton';
-
+import {connect} from 'react-redux';
+import LoginFirst from '../../LoginFirst/LoginFirst';
 
 
 class DeassignCourse extends Component{
@@ -42,36 +43,45 @@ class DeassignCourse extends Component{
         courseidBox.value='';
     }
     render(){
-        return(
-            <div className="pa4 blackBackground">
-            <form className="bg-white w-50 centrallyAligned pv3 ph1" onSubmit={this.handleFormSubmit}>
-                <h3>Deassign Course</h3>
-            
-            Enter roll number of student
-            <br></br>
-            <TextField
-                id="rollDeassign"
-                placeholder="ex: 2k17/se/001"
-                margin="normal"
-                type="text"
-                required
-              /><br></br><br/>
-            
-            Enter course id of course
-            <br></br>
-            <TextField
-                id="courseidDeassign"
-                placeholder="ex: se 202"
-                margin="normal"
-                type="text"
-                required
-              />
-            <br></br><br/>
-            <SubmitButton text="Deassign Course"></SubmitButton>
-               </form>
-            </div>
-        );
+        if(this.props.isAdminLoggedIn===false){
+            return <LoginFirst></LoginFirst>
+        }
+        else{
+            return(
+                <div className="pa4 blackBackground">
+                <form className="bg-white w-50 centrallyAligned pv3 ph1" onSubmit={this.handleFormSubmit}>
+                    <h3>Deassign Course</h3>
+
+                Enter roll number of student
+                <br></br>
+                <TextField
+                    id="rollDeassign"
+                    placeholder="ex: 2k17/se/001"
+                    margin="normal"
+                    type="text"
+                    required
+                  /><br></br><br/>
+
+                Enter course id of course
+                <br></br>
+                <TextField
+                    id="courseidDeassign"
+                    placeholder="ex: se 202"
+                    margin="normal"
+                    type="text"
+                    required
+                  />
+                <br></br><br/>
+                <SubmitButton text="Deassign Course"></SubmitButton>
+                   </form>
+                </div>
+            );
+        }
     }
 }
-
-export default DeassignCourse;
+const mapStateToProps=(state)=>{
+    return {
+        isAdminLoggedIn:state.loadAdminReducer.isAdminLoggedIn
+    }
+}
+export default connect(mapStateToProps,null)(DeassignCourse);

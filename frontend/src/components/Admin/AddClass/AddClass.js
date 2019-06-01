@@ -3,7 +3,8 @@ import React,{Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 
 import SubmitButton from '../SubmitButton/SubmitButton';
-
+import {connect} from 'react-redux';
+import LoginFirst from '../../LoginFirst/LoginFirst';
 
 
 class AddClass extends Component{
@@ -52,58 +53,68 @@ class AddClass extends Component{
         sectionBox.value='';
     }
     render(){
-        return(
-            <div className="pa4 blackBackground">
-            <form className="bg-white w-50 centrallyAligned pv3 ph1" onSubmit={this.handleFormSubmit}>
-                <h3>Add Class</h3>
-            Enter class id of class
-            <br></br>
+        if(this.props.isAdminLoggedIn===false){
+            return <LoginFirst></LoginFirst>
+        }
+        else{
+            return(
+                <div className="pa4 blackBackground">
+                <form className="bg-white w-50 centrallyAligned pv3 ph1" onSubmit={this.handleFormSubmit}>
+                    <h3>Add Class</h3>
+                Enter class id of class
+                <br></br>
 
-            <TextField
-                id="classid"
-                placeholder="ex: se4a1"
-                margin="normal"
-                type="text"
-                required
-              />
-                <br/><br/>
-            Enter branch of class
-            <br></br>
-            <TextField
-                id="classBranch"
-                placeholder="Class Branch"
-                margin="normal"
-                type="text"
-                required
-              /><br></br><br/>
-            Enter semeter of class
-            <br></br>
+                <TextField
+                    id="classid"
+                    placeholder="ex: se4a1"
+                    margin="normal"
+                    type="text"
+                    required
+                  />
+                    <br/><br/>
+                Enter branch of class
+                <br></br>
+                <TextField
+                    id="classBranch"
+                    placeholder="Class Branch"
+                    margin="normal"
+                    type="text"
+                    required
+                  /><br></br><br/>
+                Enter semeter of class
+                <br></br>
 
-            <TextField
-                id="classSemester"
-                placeholder="Class semester"
-                margin="normal"
-                type="number"
-                required
-              />
-            <br></br><br/>
-            Enter section of class
-            <br></br>
+                <TextField
+                    id="classSemester"
+                    placeholder="Class semester"
+                    margin="normal"
+                    type="number"
+                    required
+                  />
+                <br></br><br/>
+                Enter section of class
+                <br></br>
 
-            <TextField
-                id="classSection"
-                placeholder="ex: a1"
-                margin="normal"
-                type="text"
-                required
-              />
-            <br></br><br/>
-            
-                <SubmitButton text="Add Class"></SubmitButton>
-               </form>
-            </div>
-        );
+                <TextField
+                    id="classSection"
+                    placeholder="ex: a1"
+                    margin="normal"
+                    type="text"
+                    required
+                  />
+                <br></br><br/>
+
+                    <SubmitButton text="Add Class"></SubmitButton>
+                   </form>
+                </div>
+            );
+        }
     }
 }
 
-export default AddClass;
+const mapStateToProps=(state)=>{
+    return {
+        isAdminLoggedIn:state.loadAdminReducer.isAdminLoggedIn
+    }
+}
+export default connect(mapStateToProps,null)(AddClass);

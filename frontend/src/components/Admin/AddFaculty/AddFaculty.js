@@ -3,7 +3,8 @@ import React,{Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 
 import SubmitButton from '../SubmitButton/SubmitButton';
-
+import {connect} from 'react-redux';
+import LoginFirst from '../../LoginFirst/LoginFirst';
 
 
 class AddFaculty extends Component{
@@ -45,47 +46,57 @@ class AddFaculty extends Component{
         contactBox.value='';
     }
     render(){
-        return(
-            <div className="pa4 blackBackground">
-            <form className="bg-white w-50 centrallyAligned pv3 ph1" onSubmit={this.handleFormSubmit}>
-                <h3>Add Faculty</h3>
-            
-            Enter name of faculty
-            <br></br>
-            <TextField
-                id="facultyName"
-                placeholder="Faculty Name"
-                margin="normal"
-                type="text"
-                required
-              /><br></br><br/>
-            
-            Enter email id of faculty
-            <br></br>
-            <TextField
-                id="facultyEmail"
-                placeholder="Faculty Email ID"
-                margin="normal"
-                type="email"
-                required
-              />
-            <br></br><br/>
-            Enter contact of faculty
-            <br></br>
+        if(this.props.isAdminLoggedIn===false){
+            return <LoginFirst></LoginFirst>
+        }
+        else{
+            return(
+                <div className="pa4 blackBackground">
+                <form className="bg-white w-50 centrallyAligned pv3 ph1" onSubmit={this.handleFormSubmit}>
+                    <h3>Add Faculty</h3>
 
-            <TextField
-                id="facultyContact"
-                placeholder="Faculty Contact"
-                margin="normal"
-                type="number"
-                required
-              />
-            <br></br><br/>
-            <SubmitButton text="Add Faculty"></SubmitButton>
-               </form>
-            </div>
-        );
+                Enter name of faculty
+                <br></br>
+                <TextField
+                    id="facultyName"
+                    placeholder="Faculty Name"
+                    margin="normal"
+                    type="text"
+                    required
+                  /><br></br><br/>
+
+                Enter email id of faculty
+                <br></br>
+                <TextField
+                    id="facultyEmail"
+                    placeholder="Faculty Email ID"
+                    margin="normal"
+                    type="email"
+                    required
+                  />
+                <br></br><br/>
+                Enter contact of faculty
+                <br></br>
+
+                <TextField
+                    id="facultyContact"
+                    placeholder="Faculty Contact"
+                    margin="normal"
+                    type="number"
+                    required
+                  />
+                <br></br><br/>
+                <SubmitButton text="Add Faculty"></SubmitButton>
+                   </form>
+                </div>
+            );
+        }
+        
     }
 }
-
-export default AddFaculty;
+const mapStateToProps=(state)=>{
+    return {
+        isAdminLoggedIn:state.loadAdminReducer.isAdminLoggedIn
+    }
+}
+export default connect(mapStateToProps,null)(AddFaculty);

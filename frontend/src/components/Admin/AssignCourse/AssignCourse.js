@@ -3,6 +3,8 @@ import React,{Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 
 import SubmitButton from '../SubmitButton/SubmitButton';
+import {connect} from 'react-redux';
+import LoginFirst from '../../LoginFirst/LoginFirst';
 
 
 
@@ -50,36 +52,46 @@ class AssignCourse extends Component{
         courseidBox.value='';
     }
     render(){
-        return(
-            <div className="pa4 blackBackground">
-            <form className="bg-white w-50 centrallyAligned pv3 ph1" onSubmit={this.handleFormSubmit}>
-                <h3>Assign Course</h3>
-            
-            Enter roll number of student
-            <br></br>
-            <TextField
-                id="rollAssign"
-                placeholder="ex: 2k17/se/001"
-                margin="normal"
-                type="text"
-                required
-              /><br></br><br/>
-            
-            Enter course id of course
-            <br></br>
-            <TextField
-                id="courseidAssign"
-                placeholder="ex: se 202"
-                margin="normal"
-                type="text"
-                required
-              />
-            <br></br><br/>
-            <SubmitButton text="Assign Course"></SubmitButton>
-               </form>
-            </div>
-        );
+        if(this.props.isAdminLoggedIn===false){
+            return <LoginFirst></LoginFirst>
+        }
+        else{
+            return(
+                <div className="pa4 blackBackground">
+                <form className="bg-white w-50 centrallyAligned pv3 ph1" onSubmit={this.handleFormSubmit}>
+                    <h3>Assign Course</h3>
+
+                Enter roll number of student
+                <br></br>
+                <TextField
+                    id="rollAssign"
+                    placeholder="ex: 2k17/se/001"
+                    margin="normal"
+                    type="text"
+                    required
+                  /><br></br><br/>
+
+                Enter course id of course
+                <br></br>
+                <TextField
+                    id="courseidAssign"
+                    placeholder="ex: se 202"
+                    margin="normal"
+                    type="text"
+                    required
+                  />
+                <br></br><br/>
+                <SubmitButton text="Assign Course"></SubmitButton>
+                   </form>
+                </div>
+            );
+        }
+        
     }
 }
-
-export default AssignCourse;
+const mapStateToProps=(state)=>{
+    return {
+        isAdminLoggedIn:state.loadAdminReducer.isAdminLoggedIn
+    }
+}
+export default connect(mapStateToProps,null)(AssignCourse);
