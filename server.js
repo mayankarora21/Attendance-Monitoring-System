@@ -350,9 +350,17 @@ app.post('/studentsignup',(req,res)=>{
 
 app.post('/facultysignup',(req,res)=>{
     const {email,password} = req.body;
-    db('faculty_login').insert({email:email,password:password})
-    .then(data=>res.json('signed up'))
-    .catch(err=>res.status(404).json(err));
+    db('faculty_login').select('*').where({email:email})
+    .then(data=>{
+        if(data.length!==0){
+            res.json('email already exist');
+        }
+        else{
+            db('faculty_login').insert({email:email,password:password})
+            .then(data=>res.json('signed up'))
+            .catch(err=>res.status(404).json(err));
+        }
+    }).catch(err=>res.status(404).json(err));
 })
 
 //app.put('/updatepassword',(req,res)=>{
