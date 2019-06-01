@@ -269,14 +269,13 @@ app.delete('/deassigncourse',(req,res)=>{
     }).catch(err=>res.status(404).json(err));
 })
 
-app.get('/getattendance',(req,res)=>{
+app.post('/getattendance',(req,res)=>{
     const {roll,courseid}=req.body;
-    db('student_studies').where({roll:roll}).select('courseid','classesattended','totalclasses')
-        .then(data=>{
-        console.log(roll)
-        res.json(data)
-    })
-    .catch(err=>res.status(404).json(err));
+   db.from('student_studies').innerJoin('course','course.courseid','student_studies.courseid').select('*').where({roll:roll})
+    .then(data=>{
+//       console.log(data);
+       res.json(data);
+   }).catch(err=>res.status(404).json(err));
 })
 
 app.get('/getstudentslist',(req,res)=>{
@@ -431,7 +430,7 @@ app.listen(3000,()=>{
 /deassigncourse-->delete-->'success/failure'                //done
 /assignfaculty -->post-->'success/failure'                  //done
 /deassignfaculty-->delete-->'success/failure'               //done
-/getattendance --> get --> attendance of a student in all courses   //done
+/getattendance --> post --> attendance of a student in all courses   //done
 /getstudentslist-->get--> list of all students of a class   //done  multiple cases  //done
 /enterattendance-->put-->'success/failure'                  //done
 

@@ -1,1 +1,2 @@
 export const LOAD_ADMIN="LOAD_ADMIN";
+export const LOAD_ATTENDANCE="LOAD_ATTENDANCE";
