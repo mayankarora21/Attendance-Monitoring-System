@@ -18,12 +18,14 @@ import RemoveCourse from '../Admin/RemoveCourse/RemoveCourse';
 import AdminLogin from '../AdminLogin/AdminLogin';
 import StudentHome from '../Student/StudentHome/StudentHome';
 import StudentLogin from '../StudentLogin/StudentLogin';
+import StudentUpdatePassword from '../Student/StudentUpdatePassword/StudentUpdatePassword';
 
 const Routes=()=>{
     return(
         <Switch>
             <Route path="/student" component={StudentHome}></Route>
             <Route path="/studentlogin"  component={StudentLogin}></Route>
+            <Route path="/studentupdatepassword" component={StudentUpdatePassword}></Route>
             <Route path="/addstudent" component={AddStudent}></Route>
             <Route path="/addfaculty" component={AddFaculty}></Route>
             <Route path="/addclass" component={AddClass}></Route>

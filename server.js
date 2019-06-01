@@ -354,10 +354,17 @@ app.post('/facultysignup',(req,res)=>{
 //})
 
 app.put('/studentupdatepassword',(req,res)=>{
-    db('student_login').where({email:req.body.email})
-    .update({password:req.body.password})
-    .then(data=>res.json('password updated'))
-    .catch(err=>res.status(404).json(err));
+    db('student_login').where({email:req.body.email,password:req.body.oldPassword}).select('*').then(data=>{
+        if(data.length===0){
+            return res.json('wrong credentials');
+        }
+        else{
+            db('student_login').where({email:req.body.email,password:req.body.oldPassword})
+            .update({password:req.body.newPassword})
+            .then(data=>res.json('password updated'))
+            .catch(err=>res.status(404).json(err));
+        }
+    }).catch(err=>res.status(404).json(err));
 })
 
 app.put('/facultyupdatepassword',(req,res)=>{
