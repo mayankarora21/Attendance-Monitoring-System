@@ -14,8 +14,8 @@ class StudentHome extends Component{
     render(){
 //        console.log('attendance',this.props.attendance)
         const attendance=this.props.attendance;
-
-        if(attendance!==undefined && attendance.name!=="error"){
+//        console.log(attendance)
+        if(attendance!==undefined && attendance.map){
             if(attendance.length===0){
                 return(
                     <div className="studentHomeBackground white">
