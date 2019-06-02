@@ -84,10 +84,14 @@ class ButtonAppBar extends React.Component{
     studentSignOut=()=>{
         this.props.signOutStudent();
     }
+    facultySignOut=()=>{
+        this.props.signOutFaculty();
+    }
     render(){
         const { classes } = this.props;
         const isAdminLoggedIn=this.props.isAdminLoggedIn;
         const isStudentLoggedIn=this.props.isStudentLoggedIn;
+        const isFacultyLoggedIn=this.props.isFacultyLoggedIn;
 //        console.log(isAdminLoggedIn);
         const sideList = (
           <div className={classes.list}>
@@ -171,7 +175,31 @@ class ButtonAppBar extends React.Component{
                 <Divider variant ="middle" classes={{middle:classes.backgroundWhite}}/>
           </div>
         );
-        
+        const sideListFaculty = (
+          <div className={classes.list}>
+                <List>
+                    <Link to ="/faculty">
+                        <ListItem button>
+                            <ListItemIcon  classes={{root:classes.whiteColor}}><HomeIcon /></ListItemIcon>
+                            <ListItemText primary="Faculty Home" classes={{primary:classes.whiteColor}}></ListItemText> 
+                        </ListItem>
+                    </Link>
+                    <Link to ="/facultyupdatepassword">
+                        <ListItem button>
+                            <ListItemIcon  classes={{root:classes.whiteColor}}><LockIcon /></ListItemIcon>
+                            <ListItemText primary="Update Password" classes={{primary:classes.whiteColor}}></ListItemText> 
+                        </ListItem>
+                    </Link>
+                    <Link to="/facultylogin">
+                        <ListItem button onClick={this.facultySignOut}>
+                            <ListItemIcon classes={{root:classes.whiteColor}}><AccountCircleIcon /></ListItemIcon>
+                            <ListItemText primary="Sign Out" classes={{primary:classes.whiteColor}}></ListItemText>
+                        </ListItem>
+                    </Link>
+                </List>
+                <Divider variant ="middle" classes={{middle:classes.backgroundWhite}}/>
+          </div>
+        );
         
         return (
             <div className={`${classes.root} tl`}>
@@ -195,7 +223,7 @@ class ButtonAppBar extends React.Component{
                     onKeyDown={this.toggleDrawer('left', false)}
                   >
                     {
-                        (isAdminLoggedIn===true)?sideListAdmin:(isStudentLoggedIn===true)?sideListStudent:sideList
+                        (isAdminLoggedIn===true)?sideListAdmin:(isStudentLoggedIn===true)?sideListStudent:(isFacultyLoggedIn===true)?sideListFaculty:sideList
                     }
                   </div>
                 </Drawer>
@@ -212,7 +240,8 @@ ButtonAppBar.propTypes = {
 const mapStateToProps=(state)=>{
     return{
         isAdminLoggedIn:state.loadAdminReducer.isAdminLoggedIn,
-        isStudentLoggedIn:state.loginStudentReducer.isStudentLoggedIn
+        isStudentLoggedIn:state.loginStudentReducer.isStudentLoggedIn,
+        isFacultyLoggedIn:state.loginFacultyReducer.isFacultyLoggedIn,
     }
 }
 const mapDispatchToProps=(dispatch)=>{
@@ -222,8 +251,10 @@ const mapDispatchToProps=(dispatch)=>{
         },
         signOutStudent:()=>{
             dispatch(actions.loginStudent(false));
+        },
+        signOutFaculty:()=>{
+            dispatch(actions.loginFaculty(false));
         }
-        
     }
 }
 
