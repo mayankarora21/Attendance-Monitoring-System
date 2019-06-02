@@ -10,6 +10,36 @@ const StudentCard=(props)=>{
       },
       checked: {},
     })(props => <Checkbox color="default" {...props} />);
+    const {mode}=props;
+       
+    if(mode==='view'){
+        return(
+            <Fragment>
+                <Grid item xs={3}>
+                    {props.text1}
+                </Grid>
+                <Grid item xs={3}>
+                    {
+                        (props.text1!=='Roll')?props.text2.toUpperCase():props.text2
+                    }
+                </Grid>
+                <Grid item xs={2}>
+                    {props.text3}
+                </Grid>
+                <Grid item xs={2}>
+                    {props.text4}
+                </Grid>
+                <Grid item xs={2}>
+                    {props.text5}
+                </Grid>
+                <Grid item xs={12}>
+                {
+                    (props.text1!=='Roll')?<hr width="90%"></hr>:<hr/>
+                }
+            </Grid>
+            </Fragment>
+        );
+    }
     return(
         <Fragment>
             <Grid item xs={3}>
@@ -17,7 +47,7 @@ const StudentCard=(props)=>{
             </Grid>
             <Grid item xs={3}>
                 {
-                    (props.text1!=='Roll')?props.text2.toUpperCase():props.text1
+                    (props.text1!=='Roll')?props.text2.toUpperCase():props.text2
                 }
             </Grid>
             <Grid item xs={4}>
@@ -29,7 +59,7 @@ const StudentCard=(props)=>{
             </Grid>
             <Grid item xs={12}>
                 {
-                    (props.text1!=='roll')?<hr width="90%"></hr>:<hr/>
+                    (props.text1!=='Roll')?<hr width="90%"></hr>:<hr/>
                 }
             </Grid>
         </Fragment>
