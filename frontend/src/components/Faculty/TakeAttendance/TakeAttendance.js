@@ -5,6 +5,7 @@ import * as actions from '../../../actions/actions';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Loading from '../../Loading/Loading';
+import LoginFirst from '../../LoginFirst/LoginFirst';
 
 class TakeAttendance extends Component{
     componentWillMount(){
@@ -47,30 +48,33 @@ class TakeAttendance extends Component{
         });
     }
     render(){
-//        console.log(this.props.match.params);
-        const studentList=this.props.studentList;
-        
-//        console.log(studentList);
-        if(studentList && studentList.map){
-            const studentArray=studentList.map((s,i)=>{
-                return <StudentCard text1={s.roll} text2={s.name} key={i}></StudentCard>
-            })
-//            console.log(studentArray);
-            return(
-                <div className="libraryBackground white">
-                    <h3 className="ma0">Enter Attendance</h3>
-                    <br/>
-                    <Grid container spacing={2}>
-                        <StudentCard text1="Roll" text2="Name" text3="Present"></StudentCard>
-                        {studentArray}
-                    </Grid>
-                    <Button variant="contained" color="secondary" onClick={()=>{this.submitAttendance(studentList)}}>
-                        Submit Attendance
-                    </Button>
-                </div>
-            );
-        }
-        else return <Loading></Loading>
+        if(this.props.isFacultyLoggedIn){
+//          console.log(this.props.match.params);
+            const studentList=this.props.studentList;
+
+    //        console.log(studentList);
+            if(studentList && studentList.map){
+                const studentArray=studentList.map((s,i)=>{
+                    return <StudentCard text1={s.roll} text2={s.name} key={i}></StudentCard>
+                })
+    //            console.log(studentArray);
+                return(
+                    <div className="libraryBackground white">
+                        <h3 className="ma0">Enter Attendance</h3>
+                        <br/>
+                        <Grid container spacing={2}>
+                            <StudentCard text1="Roll" text2="Name" text3="Present"></StudentCard>
+                            {studentArray}
+                        </Grid>
+                        <Button variant="contained" color="secondary" onClick={()=>{this.submitAttendance(studentList)}}>
+                            Submit Attendance
+                        </Button>
+                    </div>
+                );
+            }
+            else return <Loading></Loading>
+        }else return <LoginFirst></LoginFirst>
+
         
         
     }
@@ -78,7 +82,8 @@ class TakeAttendance extends Component{
 const mapStateToProps=(state)=>{
 //    console.log(state);
     return{
-        studentList:state.loadStudentListReducer.studentList
+        studentList:state.loadStudentListReducer.studentList,
+        isFacultyLoggedIn:state.loginFacultyReducer.isFacultyLoggedIn
     }
 }
 const mapDispatchToProps=(dispatch)=>{

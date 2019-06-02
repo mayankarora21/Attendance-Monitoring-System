@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import * as actions from '../../../actions/actions';
 import Grid from '@material-ui/core/Grid';
 import Loading from '../../Loading/Loading';
+import LoginFirst from '../../LoginFirst/LoginFirst';
 
 class ViewAttendance extends Component{
     componentWillMount(){
@@ -11,30 +12,33 @@ class ViewAttendance extends Component{
     }
     
     render(){
-//        console.log(this.props.match.params);
-        const studentList=this.props.studentList;
-        
-//        console.log(studentList);
-        if(studentList && studentList.map){
-            const studentArray=studentList.map((s,i)=>{
-                let percentage=0+"%";
-                if(s.totalclasses!==0)
-                    percentage=((s.classesattended/s.totalclasses)*100).toFixed(2)+"%"
-                return <StudentCard text1={s.roll} text2={s.name} text3 ={s.classesattended} text4={s.totalclasses} text5={percentage} key={i} mode="view"></StudentCard>
-            })
-//            console.log(studentArray);
-            return(
-                <div className="libraryBackground white">
-                    <h3 className="ma0">Enter Attendance</h3>
-                    <br/>
-                    <Grid container spacing={1}>
-                        <StudentCard text1="Roll" text2="Name" text3="Classes Present" text4="Total Classes" text5="%" mode="view"></StudentCard>
-                        {studentArray}
-                    </Grid>
-                </div>
-            );
+        if(this.props.isFacultyLoggedIn){
+            //        console.log(this.props.match.params);
+            const studentList=this.props.studentList;
+
+    //        console.log(studentList);
+            if(studentList && studentList.map){
+                const studentArray=studentList.map((s,i)=>{
+                    let percentage=0+"%";
+                    if(s.totalclasses!==0)
+                        percentage=((s.classesattended/s.totalclasses)*100).toFixed(2)+"%"
+                    return <StudentCard text1={s.roll} text2={s.name} text3 ={s.classesattended} text4={s.totalclasses} text5={percentage} key={i} mode="view"></StudentCard>
+                })
+    //            console.log(studentArray);
+                return(
+                    <div className="libraryBackground white">
+                        <h3 className="ma0">Enter Attendance</h3>
+                        <br/>
+                        <Grid container spacing={1}>
+                            <StudentCard text1="Roll" text2="Name" text3="Classes Present" text4="Total Classes" text5="%" mode="view"></StudentCard>
+                            {studentArray}
+                        </Grid>
+                    </div>
+                );
+            }
+            else return <Loading></Loading>
         }
-        else return <Loading></Loading>
+        else return <LoginFirst/>
         
         
     }
@@ -42,7 +46,8 @@ class ViewAttendance extends Component{
 const mapStateToProps=(state)=>{
 //    console.log(state);
     return{
-        studentList:state.loadStudentListReducer.studentList
+        studentList:state.loadStudentListReducer.studentList,
+        isFacultyLoggedIn:state.loginFacultyReducer.isFacultyLoggedIn
     }
 }
 const mapDispatchToProps=(dispatch)=>{

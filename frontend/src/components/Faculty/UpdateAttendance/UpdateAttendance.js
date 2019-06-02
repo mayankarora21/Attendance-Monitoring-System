@@ -5,6 +5,7 @@ import * as actions from '../../../actions/actions';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Loading from '../../Loading/Loading';
+import LoginFirst from '../../LoginFirst/LoginFirst';
 
 class UpdateAttendance extends Component{
     componentWillMount(){
@@ -62,38 +63,41 @@ class UpdateAttendance extends Component{
         });
     }
     render(){
-//        console.log(this.props.match.params);
-        const studentList=this.props.studentList;
-        
-//        console.log(studentList);
-        if(studentList && studentList.map){
-            const studentArray=studentList.map((s,i)=>{
-                return <StudentCard text1={s.roll} text2={s.name} mode="update" text3={s.classesattended} text4={s.totalclasses} key={i}></StudentCard>
-            })
-//            console.log(studentArray);
-            return(
-                <div className="libraryBackground white">
-                    <h3 className="ma0">Update Attendance</h3>
-                    <br/>
-                    <Grid container spacing={2}>
-                        <StudentCard text1="Roll" text2="Name" text3="Classes Present" text4="Total Classes" mode="update"></StudentCard>
-                        {studentArray}
-                    </Grid>
-                    <Button variant="contained" color="secondary" onClick={()=>{this.updateAttendance(studentList)}}>
-                        Update Attendance
-                    </Button>
-                </div>
-            );
+        if(this.props.isFacultyLoggedIn){
+            //        console.log(this.props.match.params);
+            const studentList=this.props.studentList;
+
+    //        console.log(studentList);
+            if(studentList && studentList.map){
+                const studentArray=studentList.map((s,i)=>{
+                    return <StudentCard text1={s.roll} text2={s.name} mode="update" text3={s.classesattended} text4={s.totalclasses} key={i}></StudentCard>
+                })
+    //            console.log(studentArray);
+                return(
+                    <div className="libraryBackground white">
+                        <h3 className="ma0">Update Attendance</h3>
+                        <br/>
+                        <Grid container spacing={2}>
+                            <StudentCard text1="Roll" text2="Name" text3="Classes Present" text4="Total Classes" mode="update"></StudentCard>
+                            {studentArray}
+                        </Grid>
+                        <Button variant="contained" color="secondary" onClick={()=>{this.updateAttendance(studentList)}}>
+                            Update Attendance
+                        </Button>
+                    </div>
+                );
+            }
+            else return <Loading></Loading>
         }
-        else return <Loading></Loading>
-        
+        else return <LoginFirst/>
         
     }
 }
 const mapStateToProps=(state)=>{
 //    console.log(state);
     return{
-        studentList:state.loadStudentListReducer.studentList
+        studentList:state.loadStudentListReducer.studentList,
+        isFacultyLoggedIn:state.loginFacultyReducer.isFacultyLoggedIn
     }
 }
 const mapDispatchToProps=(dispatch)=>{
