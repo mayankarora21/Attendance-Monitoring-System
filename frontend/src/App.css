@@ -50,4 +50,11 @@
     background-size: cover;
 }
 
+.homeBackground{
+    background: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('https://cdn.pixabay.com/photo/2015/11/19/21/14/phone-1052023_960_720.jpg');
+    min-height: 100vh;
+    background-position: center;
+    background-position: center;
+    background-size: cover;
+}
 
