@@ -4,6 +4,7 @@ import * as actions from '../../../actions/actions';
 import CourseAndClass from '../CourseAndClass/CourseAndClass';
 import Grid from '@material-ui/core/Grid';
 import Loading from '../../Loading/Loading';
+import LoginFirst from '../../LoginFirst/LoginFirst'
 
 class FacultyHome extends React.Component{
     componentWillMount(){
@@ -11,24 +12,28 @@ class FacultyHome extends React.Component{
         this.props.loadCourseAndClass(facultyID);
     }
     render(){
-        const courseAndClass=this.props.courseAndClass;
+//        console.log(this.props.isFacultyLoggedIn)
+        if(this.props.isFacultyLoggedIn){
+            const courseAndClass=this.props.courseAndClass;
 //        if(courseAndClass)
 //            console.log('render',courseAndClass);
-        if(courseAndClass && courseAndClass.map){
-            const courseAndClassArray=courseAndClass.map((c,i)=>{
-                return <CourseAndClass text1={c.classid} text2={c.name} key={i} courseid={c.courseid}></CourseAndClass>
-            })
-            return(
-                <div className="facultyHomeBackground white">
-                    <h3 className="ma0">Welcome Faculty</h3><br/>
-                    <Grid container spacing={3}>
-                        <CourseAndClass text1="Class" text2="Course"></CourseAndClass>
-                        {courseAndClassArray}
-                    </Grid>
-                </div>
-            );
+            if(courseAndClass && courseAndClass.map){
+                const courseAndClassArray=courseAndClass.map((c,i)=>{
+                    return <CourseAndClass text1={c.classid} text2={c.name} key={i} courseid={c.courseid}></CourseAndClass>
+                })
+                return(
+                    <div className="facultyHomeBackground white">
+                        <h3 className="ma0">Welcome Faculty</h3><br/>
+                        <Grid container spacing={3}>
+                            <CourseAndClass text1="Class" text2="Course"></CourseAndClass>
+                            {courseAndClassArray}
+                        </Grid>
+                    </div>
+                );
+            }
+            else return <Loading></Loading>;
         }
-        else return <Loading></Loading>;
+        else return <LoginFirst></LoginFirst>
         
     }
     
@@ -36,7 +41,8 @@ class FacultyHome extends React.Component{
 
 const mapStateToProps=(state)=>{
     return{
-        courseAndClass:state.loadCourseClassReducer.courseAndClass
+        courseAndClass:state.loadCourseClassReducer.courseAndClass,
+        isFacultyLoggedIn:state.loginFacultyReducer.isFacultyLoggedIn
     }
 }
 const mapDispatchToProps=(dispatch)=>{

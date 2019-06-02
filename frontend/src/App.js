@@ -32,6 +32,7 @@ const mapDispatchToProps=(dispatch)=>{
         initializeApp:()=>{
             dispatch(actions.loadAdmin(false));
             dispatch(actions.loginStudent(false));
+            dispatch(actions.loginFaculty(false));
         }
     }
 }

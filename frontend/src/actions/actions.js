@@ -90,3 +90,18 @@ export function loadStudentList(courseid,classid){
         payload:studentList
     }
 }
+
+export function loginFaculty(isFacultyLoggedIn){
+//    console.log('loginFaculty action',isFacultyLoggedIn)
+    return{
+        type:actionTypes.LOGIN_FACULTY,
+        payload:{isFacultyLoggedIn:isFacultyLoggedIn}
+    }
+}
+
+export function loadFaculty(faculty){
+    return{
+        type:actionTypes.LOAD_FACULTY,
+        payload:faculty
+    }
+}

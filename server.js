@@ -314,7 +314,7 @@ app.post('/studentlogin',(req,res)=>{
     }).catch(err=>res.status(404).json(err));
 })
 
-app.get('/facultylogin',(req,res)=>{
+app.post('/facultylogin',(req,res)=>{
     const {email,password} = req.body;
     db('faculty_login').select('*').where({email:email,password:password})
         .then(data=>{
@@ -322,7 +322,9 @@ app.get('/facultylogin',(req,res)=>{
             res.json('wrong credentials')
         }
         else{
-            res.json('right credentials');
+//            res.json('right credentials');
+            db('faculty').select('*').where({email:email})
+            .then(data=>res.json(data));
         }
     }).catch(err=>res.status(404).json(err));
 })
@@ -467,7 +469,7 @@ app.listen(3000,()=>{
 /studentlogin-->post-->'success/failure'                            //done
 /studentupdatepassword-->get-->'success/failure'                   //done
 /studentsignup-->post-->'success/failure'                          //done
-/facultylogin-->get-->'success/failure'                            //done
+/facultylogin-->post-->'success/failure'                            //done
 /facultyupdatepassword-->get-->'success/failure'                   //done
 /facultysignup-->post-->'success/failure'                          //done
 /getcourseandclass-->post-->list of courses and classes that the faculty is assigned     //done
