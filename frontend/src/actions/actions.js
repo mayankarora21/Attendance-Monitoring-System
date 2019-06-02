@@ -44,3 +44,26 @@ export function loadStudent(currStudent){
         payload:currStudent
     }
 }
+
+export function loadCourseAndClass(facultyID){
+//    console.log('loading course and class',facultyID)
+    const faculty={
+        facultyID:facultyID
+    }
+    const courseAndClass=fetch('http://localhost:3000/getcourseandclass',{
+        method:'post',
+        headers:{
+            'content-type':'application/json'
+        },
+        body:JSON.stringify(faculty)
+    }).then(response=>response.json())
+    .then(data=>{
+        return data
+    });
+//    console.log('action',courseAndClass)
+
+    return{
+        type:actionTypes.LOAD_COURSE_CLASS,
+        payload:courseAndClass
+    }
+}

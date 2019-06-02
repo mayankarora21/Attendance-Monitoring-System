@@ -409,11 +409,16 @@ app.put('/enterattendance',(req,res)=>{         ////////////create transaction
     res.json('attendance entered')
 })
 
-app.get('/getcourseandclass',(req,res)=>{
+app.post('/getcourseandclass',(req,res)=>{
     const {facultyID} =req.body;
-    db('faculty_teaches').select('classid','courseid').where({facultyid:facultyID})
-    .then(data=>res.json(data))
-    .catch(err=>res.json(err)).catch(err=>res.status(404).json(err));
+    db.from('faculty_teaches').innerJoin('course','faculty_teaches.courseid','course.courseid')
+    .select('*').where({facultyid:facultyID})
+    .then(data=>{
+        res.json(data)
+    }).catch(err=>res.status(404).json(err));
+//    db('faculty_teaches').select('classid','courseid').where({facultyid:facultyID})
+//    .then(data=>res.json(data))
+//    .catch(err=>res.status(404).json(err));
 });
 
 app.put('/updateattendance',(req,res)=>{
@@ -465,7 +470,7 @@ app.listen(3000,()=>{
 /facultylogin-->get-->'success/failure'                            //done
 /facultyupdatepassword-->get-->'success/failure'                   //done
 /facultysignup-->post-->'success/failure'                          //done
-/getcourseandclass-->get-->list of courses and classes that the faculty is assigned     //done
+/getcourseandclass-->post-->list of courses and classes that the faculty is assigned     //done
 /updateattendance-->put-->'success/failure'                 //done
 /adminlogin-->post-->'success/failure'                      //done
 
