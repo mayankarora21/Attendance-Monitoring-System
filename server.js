@@ -278,7 +278,7 @@ app.post('/getattendance',(req,res)=>{
    }).catch(err=>res.status(404).json(err));
 })
 
-app.get('/getstudentslist',(req,res)=>{
+app.post('/getstudentslist',(req,res)=>{
     const {classid,courseid}=req.body;
     db.from('student').innerJoin('student_studies','student.roll','student_studies.roll').where({
         courseid:courseid,
@@ -393,14 +393,14 @@ app.put('/facultyupdatepassword',(req,res)=>{
 
 app.put('/enterattendance',(req,res)=>{         ////////////create transaction
     const {studentList,courseid}=req.body;
-    console.log("student 0 is ",studentList[0],courseid)
+//    console.log("student 0 is ",studentList[0],courseid)
 //    studentList is an array of student objects
     studentList.forEach((student,i)=>{
-        console.log("student ",student)
+//        console.log("student ",student)
         db('student_studies').where({roll:student.roll,courseid:courseid})
         .increment('totalclasses',1).then();
-        if(student.isPresent==='true'){
-            console.log('present')
+        if(student.isPresent===true){
+//            console.log('present')
             db('student_studies').where({roll:student.roll,courseid:courseid})
             .increment('classesattended',1).then().catch(err=>{return res.status(404).json(err)});
         }
@@ -461,7 +461,7 @@ app.listen(3000,()=>{
 /assignfaculty -->post-->'success/failure'                  //done
 /deassignfaculty-->delete-->'success/failure'               //done
 /getattendance --> post --> attendance of a student in all courses   //done
-/getstudentslist-->get--> list of all students of a class   //done  multiple cases  //done
+/getstudentslist-->post--> list of all students of a class   //done  multiple cases  //done
 /enterattendance-->put-->'success/failure'                  //done
 
 /studentlogin-->post-->'success/failure'                            //done

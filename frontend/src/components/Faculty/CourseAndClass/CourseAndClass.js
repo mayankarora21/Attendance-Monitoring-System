@@ -32,7 +32,7 @@ const CourseAndClass=(props)=>{
                     }
                 </Grid>
                 <Grid item xs={5}>
-                    <Menu></Menu>
+                    <Menu courseid={props.courseid} classid={props.text1}></Menu>
                 </Grid>
                 <Grid item xs={12}>
                     <hr width="90%"></hr>

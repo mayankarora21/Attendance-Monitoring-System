@@ -16,7 +16,7 @@ class FacultyHome extends React.Component{
 //            console.log('render',courseAndClass);
         if(courseAndClass && courseAndClass.map){
             const courseAndClassArray=courseAndClass.map((c,i)=>{
-                return <CourseAndClass text1={c.classid} text2={c.name} key={i}></CourseAndClass>
+                return <CourseAndClass text1={c.classid} text2={c.name} key={i} courseid={c.courseid}></CourseAndClass>
             })
             return(
                 <div className="facultyHomeBackground white">

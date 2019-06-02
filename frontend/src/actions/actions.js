@@ -67,3 +67,26 @@ export function loadCourseAndClass(facultyID){
         payload:courseAndClass
     }
 }
+
+
+export function loadStudentList(courseid,classid){
+    const object={
+        courseid:courseid,
+        classid:classid
+    }
+//    console.log(object);
+    const studentList=fetch('http://localhost:3000/getstudentslist',{
+        method:'post',
+        headers:{
+            'content-type':'application/json'
+        },
+        body:JSON.stringify(object)
+    }).then(response=>response.json())
+    .then(data=>{
+        return data
+    });
+    return{
+        type:actionTypes.LOAD_STUDENT_LIST,
+        payload:studentList
+    }
+}

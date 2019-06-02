@@ -42,5 +42,12 @@
     background-size: cover;
 }
 
+.libraryBackground{
+    background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('https://cdn.pixabay.com/photo/2016/01/19/01/42/library-1147815_960_720.jpg');
+    min-height: 100vh;
+    background-position: center;
+    background-position: center;
+    background-size: cover;
+}
 
 

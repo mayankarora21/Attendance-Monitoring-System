@@ -4,13 +4,15 @@ import loadAttendanceReducer from './loadAttendanceReducer';
 import loginStudentReducer from './loginStudentReducer';
 import loadStudentReducer from './loadStudentReducer';
 import loadCourseClassReducer from './loadCourseClassReducer';
+import loadStudentListReducer from './loadStudentListReducer';
 
 const rootReducer=combineReducers({
     loadAdminReducer,
     loadAttendanceReducer,
     loginStudentReducer,
     loadStudentReducer,
-    loadCourseClassReducer
+    loadCourseClassReducer,
+    loadStudentListReducer
 });
 
 export default rootReducer;

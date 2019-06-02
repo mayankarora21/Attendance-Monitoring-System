@@ -4,7 +4,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import {Link} from 'react-router-dom';
 
-function SimpleMenu() {
+const SimpleMenu=(props)=> {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   function handleClick(event) {
@@ -27,7 +27,7 @@ function SimpleMenu() {
         Options
       </Button>
       <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-          <Link to="/takeattendance" className="noUnderline"><MenuItem onClick={handleClose}>Take Attendance</MenuItem></Link>
+          <Link to={`/takeattendance/${props.courseid}/${props.classid}`} className="noUnderline"><MenuItem onClick={handleClose}>Take Attendance</MenuItem></Link>
           <Link to="/viewattendance" className="noUnderline"><MenuItem onClick={handleClose}>View Attendance</MenuItem></Link>
           <Link to="/updateattendance" className="noUnderline"><MenuItem onClick={handleClose}>Update Attendance</MenuItem></Link>
       </Menu>
