@@ -29,7 +29,7 @@ const SimpleMenu=(props)=> {
       <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
           <Link to={`/takeattendance/${props.courseid}/${props.classid}`} className="noUnderline"><MenuItem onClick={handleClose}>Take Attendance</MenuItem></Link>
           <Link to={`/viewattendance/${props.courseid}/${props.classid}`} className="noUnderline"><MenuItem onClick={handleClose}>View Attendance</MenuItem></Link>
-          <Link to="/updateattendance" className="noUnderline"><MenuItem onClick={handleClose}>Update Attendance</MenuItem></Link>
+          <Link to={`/updateattendance/${props.courseid}/${props.classid}`} className="noUnderline"><MenuItem onClick={handleClose}>Update Attendance</MenuItem></Link>
       </Menu>
     </div>
   );
