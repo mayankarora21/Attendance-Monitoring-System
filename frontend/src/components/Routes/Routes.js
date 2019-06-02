@@ -26,11 +26,13 @@ import TakeAttendance from '../Faculty/TakeAttendance/TakeAttendance';
 import ViewAttendance from '../Faculty/ViewAttendance/ViewAttendance';
 import UpdateAttendance from '../Faculty/UpdateAttendance/UpdateAttendance';
 import FacultyLogin from '../FacultyLogin/FacultyLogin';
+import FacultyUpdatePassword from '../Faculty/FacultyUpdatePassword/FacultyUpdatePassword';
 
 const Routes=()=>{
     return(
         <Switch>
             <Route path="/student" component={StudentHome}></Route>
+            <Route path="/facultyupdatepassword" component={FacultyUpdatePassword}></Route>
             <Route path="/facultylogin" component={FacultyLogin}></Route>
             <Route path="/takeattendance/:courseid/:classid" component={TakeAttendance}></Route>
             <Route path="/updateattendance/:courseid/:classid" component={UpdateAttendance}></Route>

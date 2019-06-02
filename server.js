@@ -387,10 +387,19 @@ app.put('/studentupdatepassword',(req,res)=>{
 })
 
 app.put('/facultyupdatepassword',(req,res)=>{
-    db('faculty_login').where({email:req.body.email})
-    .update({password:req.body.password})
-    .then(data=>res.json('password updated'))
-    .catch(err=>res.status(404).json(err));
+    db('faculty_login').select('*').where({email:req.body.email,password:req.body.oldPassword})
+    .then(data=>{
+        if(data.length===0){
+            return res.json('wrong credentials');
+        }
+        else{
+            db('faculty_login').where({email:req.body.email,password:req.body.oldPassword})
+            .update({password:req.body.newPassword})
+            .then(data=>res.json('password updated'))
+            .catch(err=>res.status(404).json(err));
+        }
+    }).catch(err=>res.status(404).json(err));
+    
 })
 
 app.put('/enterattendance',(req,res)=>{         ////////////create transaction
