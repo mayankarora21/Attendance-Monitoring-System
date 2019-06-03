@@ -161,3 +161,14 @@ export function loadCourseListAll(){
         payload:courseListAll
     }
 }
+
+export function loadFacultyAssignmentListAll(){
+    const facultyAssignmentListAll=fetch('http://localhost:3000/getallfacultyassignmentlist').then(response=>response.json())
+    .then(data=>{
+        return data
+    });
+    return{
+        type:actionTypes.FACULTY_ASSIGNMENT_LIST_ALL,
+        payload:facultyAssignmentListAll
+    }
+}

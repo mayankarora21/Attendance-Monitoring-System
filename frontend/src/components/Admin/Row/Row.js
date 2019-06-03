@@ -55,6 +55,28 @@ const Row=(props)=>{
             </React.Fragment>
         );
     }
+    else{
+        return(
+            <React.Fragment>
+                <Grid item xs={4} style={{overflowX:'auto'}}>
+                    {props.text1}
+                </Grid>
+                <Grid item xs={4} style={{overflowX:'auto'}}>
+                    {props.text2}
+                </Grid>
+                <Grid item xs={4} style={{overflowX:'auto'}}>
+                    {props.text3}
+                </Grid>
+                <Grid item xs={12} style={{overflowX:'auto'}}>
+                    {
+                        (props.text1!=='Roll' || props.text1!=='Faculty ID')?
+                        <hr width="90%"></hr>
+                        :<hr></hr>
+                    }
+                </Grid>
+            </React.Fragment>
+        );
+    }
     
 }
 
