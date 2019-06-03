@@ -117,3 +117,14 @@ export function loadDetentionList(){
         payload:detentionList
     }
 }
+
+export function loadStudentListAll(){
+    const studentListAll=fetch('http://localhost:3000/getallstudentlist').then(response=>response.json())
+    .then(data=>{
+        return data
+    });
+    return{
+        type:actionTypes.LOAD_STUDENT_LIST_ALL,
+        payload:studentListAll
+    }
+}

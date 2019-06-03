@@ -489,6 +489,13 @@ app.get('/getdetentionlist',(req,res)=>{
     }).catch(err=>res.status(404).json(err))
 })
 
+app.get('/getallstudentlist',(req,res)=>{
+    db.from('student')
+    .then(data=>{
+        return res.json(data);
+    }).catch(err=>res.status(404).json(err))
+})
+
 app.listen(3000,()=>{
     console.log('app is running on port 3000');
 });
@@ -521,6 +528,7 @@ app.listen(3000,()=>{
 /updateattendance-->put-->'success/failure'                 //done
 /adminlogin-->post-->'success/failure'                      //done
 /getdetentionlist-->get-->detentionlist                     //done
+/getallstudentlist-->get-->studentlist                      //done
 
 /login-->get-->'success/failure'                            //done
 /updatepassword-->get-->'success/failure'                   //done
