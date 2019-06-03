@@ -27,6 +27,9 @@ const FacultySignUp=(props)=>{
                 else if(data==='email already exist'){
                     window.alert("You can not sign up because you have already signup up")
                 }
+                else if(data==='faculty does not exist'){
+                    window.alert('Could not sign up. This faculty does not exist in our records.');
+                }
                 else{
                     window.alert('You can not sign up');
                 }
