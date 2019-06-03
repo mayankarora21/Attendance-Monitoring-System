@@ -140,3 +140,13 @@ export function loadFacultyListAll(){
     }
 }
 
+export function loadClassListAll(){
+    const classListAll=fetch('http://localhost:3000/getallclasslist').then(response=>response.json())
+    .then(data=>{
+        return data
+    });
+    return{
+        type:actionTypes.LOAD_CLASS_LIST_ALL,
+        payload:classListAll
+    }
+}

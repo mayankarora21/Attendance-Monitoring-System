@@ -503,6 +503,12 @@ app.get('/getallfacultylist',(req,res)=>{
     }).catch(err=>res.status(404).json(err))
 })
 
+app.get('/getallclasslist',(req,res)=>{
+    db.from('class')
+    .then(data=>{
+        return res.json(data);
+    }).catch(err=>res.status(404).json(err))
+})
 
 app.listen(3000,()=>{
     console.log('app is running on port 3000');

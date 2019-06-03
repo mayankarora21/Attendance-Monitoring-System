@@ -30,12 +30,14 @@ import FacultyUpdatePassword from '../Faculty/FacultyUpdatePassword/FacultyUpdat
 import ViewDetentionList from '../Admin/ViewDetentionList/ViewDetentionList';
 import ViewStudentList from '../Admin/ViewStudentList/ViewStudentList';
 import ViewFacultyList from '../Admin/ViewFacultyList/ViewFacultyList';
+import ViewClassList from '../Admin/ViewClassList/ViewClassList';
 
 const Routes=()=>{
     return(
         <Switch>
             <Route path="/student" component={StudentHome}></Route>
             <Route path="/viewstudentlist" component={ViewStudentList}></Route>
+            <Route path="/viewclasslist" component={ViewClassList}></Route>
             <Route path="/viewfacultylist" component={ViewFacultyList}></Route>
             <Route path="/viewdetentionlist" component={ViewDetentionList}></Route>
             <Route path="/facultyupdatepassword" component={FacultyUpdatePassword}></Route>
