@@ -108,6 +108,20 @@ const AdminHome=(props)=>{
             <Button variant="contained" color="secondary">
                 Deassign Class to Faculty
                 </Button></Link></Grid>
+                <Grid item xs={12}>
+                    <hr width="80%" align="center"></hr>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <Link to="/viewdetentionlist" className="noUnderline">
+                        <Button variant="contained" color="secondary" >
+                            View Detention List
+                        </Button>
+                    </Link>
+                </Grid>
+                
+                {/*<Grid item xs={12}>
+                    <hr width="80%" align="center"></hr>
+                </Grid>*/}
             </Grid>
         </div>
     )

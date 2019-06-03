@@ -58,3 +58,12 @@
     background-size: cover;
 }
 
+
+
+.detentionListBackground{
+    background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('https://stationonjasper.com/wp-content/uploads/2018/12/the-detention-escape-room-in-charlotte-583951.jpg');
+    min-height: 100vh;
+    background-position: center;
+    background-position: center;
+    background-size: cover;
+}

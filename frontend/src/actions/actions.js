@@ -105,3 +105,15 @@ export function loadFaculty(faculty){
         payload:faculty
     }
 }
+
+
+export function loadDetentionList(){
+    const detentionList=fetch('http://localhost:3000/getdetentionlist').then(response=>response.json())
+    .then(data=>{
+        return data
+    });
+    return{
+        type:actionTypes.LOAD_DETENTION_LIST,
+        payload:detentionList
+    }
+}

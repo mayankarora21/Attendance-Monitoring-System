@@ -463,6 +463,14 @@ app.post('/adminlogin',(req,res)=>{
     }
 })
 
+app.get('/getdetentionlist',(req,res)=>{
+    db.from('student_studies').innerJoin('course','student_studies.courseid','course.courseid')
+    .whereRaw('classesattended < 0.75*totalclasses')
+    .then(data=>{
+        return res.json(data);
+    }).catch(err=>res.status(404).json(err))
+})
+
 app.listen(3000,()=>{
     console.log('app is running on port 3000');
 });
@@ -494,6 +502,7 @@ app.listen(3000,()=>{
 /getcourseandclass-->post-->list of courses and classes that the faculty is assigned     //done
 /updateattendance-->put-->'success/failure'                 //done
 /adminlogin-->post-->'success/failure'                      //done
+/getdetentionlist-->get-->detentionlist                     //done
 
 /login-->get-->'success/failure'                            //done
 /updatepassword-->get-->'success/failure'                   //done
