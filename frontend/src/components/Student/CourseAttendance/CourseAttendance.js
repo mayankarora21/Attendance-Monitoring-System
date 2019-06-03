@@ -2,6 +2,7 @@ import React,{Fragment} from 'react';
 import Grid from '@material-ui/core/Grid';
 
 const CourseAttendance=(props)=>{
+//    console.log('percentage is',props.text5)
     return(
             <Fragment>
                 <Grid item xs={2}>
@@ -31,9 +32,20 @@ const CourseAttendance=(props)=>{
                 <Grid item xs={2}>
                     {
                         (props.text1!=='Course ID')?
-                        ((props.text5.toUpperCase)?props.text5.toUpperCase():props.text5):props.text5
+                        (props.text5+"%"):props.text5
                     }
                 </Grid>
+                {
+                    (props.text1!=='Course ID')?
+                    <Grid item xs={12}>
+                            {
+                                (props.text4===0)?`You are on track but you can not miss the next class`:
+                                (props.text5<75)?`You have to attend next ${props.classesToAttend} classes`:
+                                (props.text5>75)?(props.classesToMiss>0)?
+                                `You are on track. You can miss next ${props.classesToMiss} classes`:`You are on track but you can not miss the next class`:`You are on track but you can not miss the next class`
+                            }
+                    </Grid>:null
+                }
                 {
                 (props.text1!=='Course ID')?
                 <Grid item xs={12}>

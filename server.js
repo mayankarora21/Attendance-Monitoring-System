@@ -404,20 +404,30 @@ app.put('/facultyupdatepassword',(req,res)=>{
 
 app.put('/enterattendance',(req,res)=>{         ////////////create transaction
     const {studentList,courseid}=req.body;
+    let error=false;
 //    console.log("student 0 is ",studentList[0],courseid)
 //    studentList is an array of student objects
     studentList.forEach((student,i)=>{
 //        console.log("student ",student)
         db('student_studies').where({roll:student.roll,courseid:courseid})
-        .increment('totalclasses',1).then();
-        if(student.isPresent===true){
+        .increment('totalclasses',1).then(()=>{
+            if(student.isPresent===true){
 //            console.log('present')
-            db('student_studies').where({roll:student.roll,courseid:courseid})
-            .increment('classesattended',1).then().catch(err=>{return res.status(404).json(err)});
-        }
-        
+                db('student_studies').where({roll:student.roll,courseid:courseid})
+                .increment('classesattended',1).then(()=>{
+                    return res.json('attendance entered')
+                }).catch(err=>{
+                    error=true;
+                    return res.status(404).json(err);
+                });
+            }
+        }).catch(err=>{
+            error=true;
+//            console.log('error is',error)
+//            console.log(err)
+            return res.status(404).json(err);
+        });    
     })
-    res.json('attendance entered')
 })
 
 app.post('/getcourseandclass',(req,res)=>{

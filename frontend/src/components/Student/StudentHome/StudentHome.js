@@ -36,11 +36,16 @@ class StudentHome extends Component{
                 }
                 else{
                     const attendanceArray=attendance.map((a,i)=>{
-                    let percentage=((a.classesattended/a.totalclasses)*100).toFixed(2)+"%";
+                    let percentage=((a.classesattended/a.totalclasses)*100).toFixed(2);
                     if(a.totalclasses===0){
-                        percentage="0.00%";
+                        percentage="0.00";
                     }
-                    return <CourseAttendance text1={a.courseid} text2={a.name} text3={a.classesattended} text4={a.totalclasses} text5={percentage} key={i}></CourseAttendance>
+//                    console.log('calculated %',percentage)
+                    const minAttendance=75;
+                    const classesToAttend=Math.ceil( ( (minAttendance*a.totalclasses) - (a.classesattended*100) ) / (100 - minAttendance) );
+                    const classesToMiss=Math.floor( ( ( 100 * a.classesattended) / minAttendance ) - a.totalclasses );
+//                    console.log('classes to attend',classesToAttend,"classes to miss",classesToMiss)
+                    return <CourseAttendance text1={a.courseid} text2={a.name} text3={a.classesattended} text4={a.totalclasses} text5={percentage} key={i} classesToAttend={classesToAttend} classesToMiss={classesToMiss}></CourseAttendance>
                     });
 
                     return(
