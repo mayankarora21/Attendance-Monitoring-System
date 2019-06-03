@@ -150,3 +150,14 @@ export function loadClassListAll(){
         payload:classListAll
     }
 }
+
+export function loadCourseListAll(){
+    const courseListAll=fetch('http://localhost:3000/getallcourselist').then(response=>response.json())
+    .then(data=>{
+        return data
+    });
+    return{
+        type:actionTypes.LOAD_COURSE_LIST_ALL,
+        payload:courseListAll
+    }
+}
