@@ -75,7 +75,7 @@ const mapDispatchToProps=(dispatch)=>{
             dispatch(actions.loginFaculty(true));
         },
         loadFaculty:(currFaculty)=>{
-            dispatch(actions.loadStudent(currFaculty))
+            dispatch(actions.loadFaculty(currFaculty))
         }
     }
     

@@ -8,11 +8,15 @@ import LoginFirst from '../../LoginFirst/LoginFirst'
 
 class FacultyHome extends React.Component{
     componentWillMount(){
-        const facultyID=4;       ////////
-        this.props.loadCourseAndClass(facultyID);
+        if(this.props.isFacultyLoggedIn){
+            const facultyID=this.props.currFaculty.id;
+            this.props.loadCourseAndClass(facultyID);
+        }
+        
     }
     render(){
 //        console.log(this.props.isFacultyLoggedIn)
+//        console.log(this.props.currFaculty)
         if(this.props.isFacultyLoggedIn){
             const courseAndClass=this.props.courseAndClass;
 //        if(courseAndClass)
@@ -23,7 +27,7 @@ class FacultyHome extends React.Component{
                 })
                 return(
                     <div className="facultyHomeBackground white">
-                        <h3 className="ma0">Welcome Faculty</h3><br/>
+                        <h3 className="ma0">Welcome {this.props.currFaculty.name.toUpperCase()}</h3><br/>
                         <Grid container spacing={3}>
                             <CourseAndClass text1="Class" text2="Course"></CourseAndClass>
                             {courseAndClassArray}
@@ -42,7 +46,8 @@ class FacultyHome extends React.Component{
 const mapStateToProps=(state)=>{
     return{
         courseAndClass:state.loadCourseClassReducer.courseAndClass,
-        isFacultyLoggedIn:state.loginFacultyReducer.isFacultyLoggedIn
+        isFacultyLoggedIn:state.loginFacultyReducer.isFacultyLoggedIn,
+        currFaculty:state.loadFacultyReducer.currFaculty
     }
 }
 const mapDispatchToProps=(dispatch)=>{

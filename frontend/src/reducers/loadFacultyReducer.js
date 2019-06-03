@@ -5,7 +5,7 @@ const loadFacultyReducer=(state={},action)=>{
         case actionTypes.LOAD_FACULTY:
             return{
                 ...state,
-                currFaculty:action.payload.faculty
+                currFaculty:action.payload
             }
         default:return state;
     }
