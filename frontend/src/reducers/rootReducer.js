@@ -9,6 +9,7 @@ import loginFacultyReducer from './loginFacultyReducer';
 import loadFacultyReducer from './loadFacultyReducer';
 import loadDetentionListReducer from './loadDetentionListReducer';
 import loadStudentListAllReducer from './loadStudentListAllReducer';
+import loadFacultyListAllReducer from './loadFacultyListAllReducer';
 
 const rootReducer=combineReducers({
     loadAdminReducer,
@@ -20,7 +21,8 @@ const rootReducer=combineReducers({
     loginFacultyReducer,
     loadFacultyReducer,
     loadDetentionListReducer,
-    loadStudentListAllReducer
+    loadStudentListAllReducer,
+    loadFacultyListAllReducer,
 });
 
 export default rootReducer;

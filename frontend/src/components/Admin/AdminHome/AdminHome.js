@@ -126,9 +126,17 @@ const AdminHome=(props)=>{
                     </Link>
                 </Grid>
                 
-                {/*<Grid item xs={12}>
+                <Grid item xs={12}>
                     <hr width="80%" align="center"></hr>
-                </Grid>*/}
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <Link to="/viewfacultylist" className="noUnderline">
+                        <Button variant="contained" color="secondary" >
+                            View Faculty List
+                        </Button>
+                    </Link>
+                </Grid>
+                
             </Grid>
         </div>
     )

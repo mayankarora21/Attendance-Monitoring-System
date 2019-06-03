@@ -128,3 +128,15 @@ export function loadStudentListAll(){
         payload:studentListAll
     }
 }
+
+export function loadFacultyListAll(){
+    const facultyListAll=fetch('http://localhost:3000/getallfacultylist').then(response=>response.json())
+    .then(data=>{
+        return data
+    });
+    return{
+        type:actionTypes.LOAD_FACULTY_LIST_ALL,
+        payload:facultyListAll
+    }
+}
+
