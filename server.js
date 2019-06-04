@@ -483,42 +483,49 @@ app.post('/adminlogin',(req,res)=>{
 
 app.get('/getdetentionlist',(req,res)=>{
     db.from('student_studies').innerJoin('course','student_studies.courseid','course.courseid')
-    .whereRaw('classesattended < 0.75*totalclasses')
+    .whereRaw('classesattended < 0.75*totalclasses').orderBy('roll')
     .then(data=>{
         return res.json(data);
     }).catch(err=>res.status(404).json(err))
 })
 
 app.get('/getallstudentlist',(req,res)=>{
-    db.from('student')
+    db.from('student').orderBy('roll')
     .then(data=>{
         return res.json(data);
     }).catch(err=>res.status(404).json(err))
 })
 
 app.get('/getallfacultylist',(req,res)=>{
-    db.from('faculty')
+    db.from('faculty').orderBy('id')
     .then(data=>{
         return res.json(data);
     }).catch(err=>res.status(404).json(err))
 })
 
 app.get('/getallclasslist',(req,res)=>{
-    db.from('class')
+    db.from('class').orderBy('classid')
     .then(data=>{
         return res.json(data);
     }).catch(err=>res.status(404).json(err))
 })
 
 app.get('/getallcourselist',(req,res)=>{
-    db.from('course')
+    db.from('course').orderBy('courseid')
     .then(data=>{
         return res.json(data);
     }).catch(err=>res.status(404).json(err))
 })
 
 app.get('/getallfacultyassignmentlist',(req,res)=>{
-    db.from('faculty_teaches')
+    db.from('faculty_teaches').orderBy('facultyid')
+    .then(data=>{
+        return res.json(data);
+    }).catch(err=>res.status(404).json(err))
+})
+
+app.get('/getallcourseassignmentlist',(req,res)=>{
+    db.from('student_studies').orderBy('roll')
     .then(data=>{
         return res.json(data);
     }).catch(err=>res.status(404).json(err))
@@ -561,6 +568,7 @@ app.listen(3000,()=>{
 /getallclasslist-->get-->classlist                      //done
 /getallcourselist-->get-->courselist                      //done
 /getallfacultyassignmentlist-->get-->facultyassignmentlist                      //done
+/getallcourseassignmentlist-->get-->courseassignmentlist                      //done
 
 /login-->get-->'success/failure'                            //done
 /updatepassword-->get-->'success/failure'                   //done

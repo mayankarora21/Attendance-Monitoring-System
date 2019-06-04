@@ -13,6 +13,7 @@ import loadFacultyListAllReducer from './loadFacultyListAllReducer';
 import loadClassListAllReducer from './loadClassListAllReducer';
 import loadCourseListAllReducer from './loadCourseListAllReducer';
 import loadFacultyAssignmentListAllReducer from './loadFacultyAssignmentListAllReducer';
+import loadCourseAssignmentListAllReducer from './loadCourseAssignmentListAllReducer';
 
 const rootReducer=combineReducers({
     loadAdminReducer,
@@ -28,7 +29,8 @@ const rootReducer=combineReducers({
     loadFacultyListAllReducer,
     loadClassListAllReducer,
     loadCourseListAllReducer,
-    loadFacultyAssignmentListAllReducer
+    loadFacultyAssignmentListAllReducer,
+    loadCourseAssignmentListAllReducer
 });
 
 export default rootReducer;

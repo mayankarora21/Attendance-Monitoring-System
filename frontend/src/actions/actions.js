@@ -172,3 +172,14 @@ export function loadFacultyAssignmentListAll(){
         payload:facultyAssignmentListAll
     }
 }
+
+export function loadCourseAssignmentListAll(){
+    const courseAssignmentListAll=fetch('http://localhost:3000/getallcourseassignmentlist').then(response=>response.json())
+    .then(data=>{
+        return data
+    });
+    return{
+        type:actionTypes.COURSE_ASSIGNMENT_LIST_ALL,
+        payload:courseAssignmentListAll
+    }
+}

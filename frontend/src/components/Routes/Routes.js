@@ -33,6 +33,7 @@ import ViewFacultyList from '../Admin/ViewFacultyList/ViewFacultyList';
 import ViewClassList from '../Admin/ViewClassList/ViewClassList';
 import ViewCourseList from '../Admin/ViewCourseList/ViewCourseList';
 import ViewFacultyAssignmentList from '../Admin/ViewFacultyAssignmentList/ViewFacultyAssignmentList';
+import ViewCourseAssignmentList from '../Admin/ViewCourseAssignmentList/ViewCourseAssignmentList';
 
 const Routes=()=>{
     return(
@@ -40,6 +41,7 @@ const Routes=()=>{
             <Route path="/student" component={StudentHome}></Route>
             <Route path="/viewstudentlist" component={ViewStudentList}></Route>
             <Route path="/viewcourselist" component={ViewCourseList}></Route>
+            <Route path="/viewcourseassignmentlist" component={ViewCourseAssignmentList}></Route>
             <Route path="/viewfacultyassignmentlist" component={ViewFacultyAssignmentList}></Route>
             <Route path="/viewclasslist" component={ViewClassList}></Route>
             <Route path="/viewfacultylist" component={ViewFacultyList}></Route>

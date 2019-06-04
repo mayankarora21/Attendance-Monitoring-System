@@ -20,7 +20,7 @@ class ViewFacultyList extends React.Component{
                     return (<div className="libraryBackground white"><h3 className="ma0">No faculty record found</h3></div>)
                 }
                 const facultyArray=facultyListAll.map((f,i)=>{
-                    return <Row text1={f.id} text2={f.name} text3={f.email} text4={f.contact} numColumns={4} key={i}></Row>
+                    return <Row text1={f.id} text2={f.name.toUpperCase()} text3={f.email} text4={f.contact} numColumns={4} key={i}></Row>
                 })
                 return(
                     <div className="libraryBackground white">

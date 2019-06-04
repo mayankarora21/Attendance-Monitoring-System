@@ -22,7 +22,7 @@ const Row=(props)=>{
                 </Grid>
                 <Grid item xs={12} style={{overflowX:'auto'}}>
                     {
-                        (props.text1!=='Roll')?
+                        (props.text1!=='Roll' && props.text1!=='ID')?
                         <hr width="90%"></hr>
                         :<hr></hr>
                     }
@@ -47,7 +47,7 @@ const Row=(props)=>{
                 </Grid>
                 <Grid item xs={12} style={{overflowX:'auto'}}>
                     {
-                        (props.text1!=='Roll')?
+                        (props.text1!=='Roll' && props.text1!=='ID')?
                         <hr width="90%"></hr>
                         :<hr></hr>
                     }
@@ -69,7 +69,7 @@ const Row=(props)=>{
                 </Grid>
                 <Grid item xs={12} style={{overflowX:'auto'}}>
                     {
-                        (props.text1!=='Roll' || props.text1!=='Faculty ID')?
+                        (props.text1!=='Roll' && props.text1!=='Faculty ID')?
                         <hr width="90%"></hr>
                         :<hr></hr>
                     }

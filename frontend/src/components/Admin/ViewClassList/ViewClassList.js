@@ -19,7 +19,7 @@ class ViewClassList extends React.Component{
                     return (<div className="libraryBackground white"><h3 className="ma0">No class record found</h3></div>)
                 }
                 const classArray=classListAll.map((c,i)=>{
-                    return <Row text1={c.classid} text2={c.branch} text3={c.semester} text4={c.section} numColumns={4} key={i}></Row>
+                    return <Row text1={c.classid.toUpperCase()} text2={c.branch.toUpperCase()} text3={c.semester} text4={c.section.toUpperCase()} numColumns={4} key={i}></Row>
                 })
                 return(
                     <div className="libraryBackground white">

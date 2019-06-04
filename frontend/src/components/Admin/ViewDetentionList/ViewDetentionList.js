@@ -20,7 +20,7 @@ class ViewDetentionList extends React.Component{
                     return (<div className="detentionListBackground white"><h3 className="ma0">No student is detained</h3></div>)
                 }
                 const studentArray=detentionList.map((s,i)=>{
-                    const percentage=(s.classesattended/s.totalclasses)*100;
+                    const percentage=((s.classesattended/s.totalclasses)*100).toFixed(2);
 
                     return <StudentCard text1={s.roll} text2={s.courseid.toUpperCase()} text3={s.name.toUpperCase()} text4={percentage+"%"} key={i}></StudentCard>
                 })
