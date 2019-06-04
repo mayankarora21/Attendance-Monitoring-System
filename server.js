@@ -433,11 +433,14 @@ app.put('/enterattendance',(req,res)=>{         ////////////create transaction
 //            console.log('present')
                 db('student_studies').where({roll:student.roll,courseid:courseid})
                 .increment('classesattended',1).then(()=>{
-                    return res.json('attendance entered')
+                    res.json('attendance entered');
                 }).catch(err=>{
                     error=true;
                     return res.status(404).json(err);
                 });
+            }
+            else{
+                res.json('attendance entered');
             }
         }).catch(err=>{
             error=true;
@@ -446,6 +449,7 @@ app.put('/enterattendance',(req,res)=>{         ////////////create transaction
             return res.status(404).json(err);
         });    
     })
+//    return res.json('attendance entered');
 })
 
 app.post('/getcourseandclass',(req,res)=>{
